@@ -5,3 +5,5 @@ entirely from scratch. I make use of SDL, the Simple DirectMedia Layer library
 from www.libsdl.org.
 
 grid.cpp = First attempt to make a simple grid.
+
+In the week of 2/16, my laptop hard drive crashed. I had to recover my Tetris files MINUS my SVN log.
