@@ -1,5 +1,6 @@
 #ifndef GUARD_grid_h
 #define GUARD_grid_h
+#include "Shape.h"
 #include <string>
 using std::string;
 
@@ -10,7 +11,8 @@ class Grid {
         int grid_width;
     public:
     	Grid();
-    	void draw(int, int);
+    	void draw();
+    	void draw(int, int, Shape *);
     	int height();
     	int width();
 };

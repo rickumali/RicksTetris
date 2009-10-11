@@ -7,4 +7,5 @@ class Pyramid : public Shape {
     int rotate_left();
     int rotate_right();
     void draw(int, int);
+    int get_width_offset();
 };

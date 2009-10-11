@@ -40,7 +40,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 }
 
 /*
- * This helper function adjusts the row so that it's within the 
+ * This helper function adjusts the row so that its within the 
  * correct boundaries. NOTE: The height is hardcoded (22).
  */
 int adjust_y(int row)
@@ -55,7 +55,7 @@ int adjust_y(int row)
 }
 
 /*
- * This helper function adjusts the columns so that it's within the 
+ * This helper function adjusts the columns so that its within the 
  * correct boundaries. NOTE: The width is hardcoded here (10).
  */
 int adjust_x(int col)
