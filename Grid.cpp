@@ -23,8 +23,8 @@ int Grid::width() {
   return grid_width;
 }
 
-// draw(x,y,Shape)
-void Grid::draw(int start_x, int start_y) {
+// draw()
+void Grid::draw() {
   for (int row = 0; row < grid_height; row++) {
     for (int col = 0; col < grid_width; col++) {
       cout << grid_data[(row * grid_width)+col];
