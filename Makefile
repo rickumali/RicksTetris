@@ -41,5 +41,8 @@ testnrand: testnrand.o nrand.o
 # This tests a simple 'character-based' grid
 testchargrid: testchargrid.o Grid.o Square.o Shape.o
 
+# This tests the new form shapedata() method in Shape
+testshapedata: testshapedata.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
+
 clean:
-	rm -f *.o *.exe stdout.txt stderr.txt
+	rm -f *.o *.exe *~ stdout.txt stderr.txt

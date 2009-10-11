@@ -15,5 +15,6 @@ class Shape {
     	virtual void draw(int, int) = 0;
     	int get_height();
     	int get_width();
+	char shapedata(int, int);
 };
 #endif

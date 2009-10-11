@@ -25,3 +25,10 @@ void Shape::rotate(int direction) {
 	  rotation = 0;
   }
 }
+
+// return the shape_data character at row, col
+// Take a look at the Ruminations on C++ Book, Chapter 9, for the 
+// inspiration of this method
+char Shape::shapedata(int row, int col) {
+      return (shape_data[rotation][(row*shape_width[rotation])+col]);
+}
