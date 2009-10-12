@@ -35,15 +35,12 @@ void Grid::draw() {
 
 // draw(start_x, start_y, shape)
 void Grid::draw(int start_x, int start_y, Shape *shape) {
-  for (int row = 0; row < grid_height; row++) {
-    for (int col = 0; col < grid_width; col++) {
-      if ((row == start_y) && (col == start_x)) {
-        // cout << shape_data[shape->rotation][(row*shape_width[rotation])+col];
-	shape->draw(row, col);
-      } else {
-        cout << grid_data[(row * grid_width)+col];
-      }
+  for (int i = 0; i < 22 * 10; i++) 
+    grid_data[i] = '.';
+  
+  for (int row = 0; row < shape->get_height(); row++) {
+    for (int col = 0; col < shape->get_width(); col++) {
+      grid_data[(start_x + col) + ((start_y + row) * 10)] = shape->shapedata(row, col);
     }
-    cout << endl;
   }
 }
