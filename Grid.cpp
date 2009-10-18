@@ -13,6 +13,13 @@ Grid::Grid() {
   grid_data = string(22 * 10, '.');
 }
 
+// Constructor
+Grid::Grid(int h, int w) {
+  grid_height = h;
+  grid_width = w;
+  grid_data = string(h * w, '.');
+}
+
 // get_height()
 int Grid::height() {
   return grid_height;
@@ -35,12 +42,12 @@ void Grid::draw() {
 
 // draw(start_x, start_y, shape)
 void Grid::draw(int start_x, int start_y, Shape *shape) {
-  for (int i = 0; i < 22 * 10; i++) 
+  for (int i = 0; i < grid_height * grid_width; i++) 
     grid_data[i] = '.';
   
   for (int row = 0; row < shape->get_height(); row++) {
     for (int col = 0; col < shape->get_width(); col++) {
-      grid_data[(start_x + col) + ((start_y + row) * 10)] = shape->shapedata(row, col);
+      grid_data[(start_x + col) + ((start_y + row) * grid_width)] = shape->shapedata(row, col);
     }
   }
 }

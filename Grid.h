@@ -11,6 +11,7 @@ class Grid {
         int grid_width;
     public:
     	Grid();
+    	Grid(int, int);
     	void draw();
     	void draw(int, int, Shape *);
     	int height();
