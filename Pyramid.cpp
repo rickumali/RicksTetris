@@ -8,14 +8,14 @@ Pyramid::Pyramid()
   : Shape ()
 {
   rotation = 0;
-  shape_height[0] = 2; // NOTE: It was 3...it's now 2
+  shape_height[0] = 3; // NOTE: It was 3...it's now 2
   shape_height[1] = 3;
-  shape_height[2] = 2; // NOTE: It was 3...it's now 2
+  shape_height[2] = 3; // NOTE: It was 3...it's now 2
   shape_height[3] = 3;
   shape_width[0] = 3;
-  shape_width[1] = 2; // NOTE: It was 3...it's now 2
+  shape_width[1] = 3; // NOTE: It was 3...it's now 2
   shape_width[2] = 3;
-  shape_width[3] = 2; // NOTE: It was 3...it's now 2
+  shape_width[3] = 3; // NOTE: It was 3...it's now 2
   shape_data[0] = " # ###   ";
   shape_data[1] = " #  ## # ";
   shape_data[2] = "   ### # ";

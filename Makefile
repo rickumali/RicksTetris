@@ -38,8 +38,11 @@ testhit: testhit.o Shape.o Square.o SDLSquare.o Pyramid.o SDLPyramid.o putpixel.
 # no VARIATION in between runs. At least how I currently have written things.
 testnrand: testnrand.o nrand.o
 
+# Test an input routine.
+testinput: testinput.o
+
 # This tests a simple 'character-based' grid
-testchargrid: testchargrid.o Grid.o Square.o Shape.o
+testchargrid: testchargrid.o Grid.o Square.o Shape.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
 
 # This tests the new form shapedata() method in Shape
 testshapedata: testshapedata.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
