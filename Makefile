@@ -7,6 +7,9 @@ LOADLIBES = -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib 
 # This just draws a grid
 firstgrid: firstgrid.o
 
+# This just draws a grid, but the new style SDLGrid
+secondgrid: secondgrid.o SDLGrid.o Grid.o Shape.o putpixel.o
+
 # This program just moves a single square. No objects or classes.
 movingsquare: movingsquare.o
 
