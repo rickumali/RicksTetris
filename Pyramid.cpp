@@ -25,24 +25,12 @@ Pyramid::Pyramid()
 int Pyramid::rotate_left() 
 {
   rotate(-1);
-  cout << "Pyramid::rotation = " << rotation << endl;
 }
 
 int Pyramid::rotate_right() 
 {
   rotate(1);
-  cout << "Pyramid::rotation = " << rotation << endl;
 }
-
-// void Pyramid::draw(int start_x, int start_y) 
-// {
-//   for (int row = 0; row < shape_height[rotation]; row++) {
-//     for (int col = 0; col < shape_width[rotation]; col++) {
-//       cout << shape_data[rotation][(row*shape_width[rotation])+col];
-//     }
-//     cout << endl;
-//   }
-// }
 
 // NOTE: The "3" is a hardcoded.
 void Pyramid::draw(int start_x, int start_y) 

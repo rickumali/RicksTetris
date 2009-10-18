@@ -24,13 +24,11 @@ LongRow::LongRow()
 int LongRow::rotate_left() 
 {
   rotate(-1);
-  cout << "LongRow::rotation = " << rotation << endl;
 }
 
 int LongRow::rotate_right() 
 {
   rotate(1);
-  cout << "LongRow::rotation = " << rotation << endl;
 }
 
 void LongRow::draw(int start_x, int start_y) 

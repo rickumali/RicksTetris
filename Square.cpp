@@ -28,13 +28,11 @@ Square::Square()
 int Square::rotate_left() 
 {
   rotate(-1);
-  cout << "Square::rotation = " << rotation << endl;
 }
 
 int Square::rotate_right() 
 {
   rotate(1);
-  cout << "Square::rotation = " << rotation << endl;
 }
 
 void Square::draw(int start_x, int start_y) 

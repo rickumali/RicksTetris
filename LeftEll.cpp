@@ -33,13 +33,11 @@ LeftEll::LeftEll()
 int LeftEll::rotate_left() 
 {
   rotate(-1);
-  cout << "LeftEll::rotation = " << rotation << endl;
 }
 
 int LeftEll::rotate_right() 
 {
   rotate(1);
-  cout << "LeftEll::rotation = " << rotation << endl;
 }
 
 void LeftEll::draw(int start_x, int start_y) 

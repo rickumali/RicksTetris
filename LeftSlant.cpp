@@ -33,13 +33,11 @@ LeftSlant::LeftSlant()
 int LeftSlant::rotate_left() 
 {
   rotate(-1);
-  cout << "LeftSlant::rotation = " << rotation << endl;
 }
 
 int LeftSlant::rotate_right() 
 {
   rotate(1);
-  cout << "LeftSlant::rotation = " << rotation << endl;
 }
 
 void LeftSlant::draw(int start_x, int start_y) 
