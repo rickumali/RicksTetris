@@ -54,11 +54,28 @@ void Grid::draw(int start_x, int start_y, Shape *shape) {
 
 // out_of_bounds(start_x, start_y, shape)
 bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
+  // We're off the right edge. 
   if ((start_x + shape->get_width()) > grid_width) {
-    return(true);
+    int overhang = start_x + shape->get_width() - grid_width;
+    // Check that the shape doesn't have an empty data column
+    for (int row = 0; row < shape->get_height(); row++) {
+      for (int col = shape->get_width() - overhang; col < shape->get_width(); col++) {
+        if (shape->shapedata(row, col) == '#')
+	  return(true);
+      }
+    }
   }
+
+  // We're off the BOTTOM edge.
   if ((start_y + shape->get_height()) > grid_height) {
-    return(true);
+    int overhang = start_y + shape->get_height() - grid_height;
+    // Check that the shape doesn't have an empty data rows
+    for (int row = shape->get_height() - overhang; row < shape->get_height(); row++) {
+      for (int col = 0; col < shape->get_width(); col++) {
+        if (shape->shapedata(row, col) == '#')
+	  return(true);
+      }
+    }
   }
   return(false);
   // TODO: Work the empty parts of the rotation
