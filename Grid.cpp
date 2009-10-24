@@ -54,6 +54,24 @@ void Grid::draw(int start_x, int start_y, Shape *shape) {
 
 // out_of_bounds(start_x, start_y, shape)
 bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
+  // TODO: overhang must NOT be > shape's height or width
+  // We're off the left edge. 
+  if (start_x < 0) {
+    int overhang = abs(start_x);
+
+    if (overhang > shape->get_width()) {
+	return(true); // TODO: Do I even need this?
+    }
+
+    // Check that the shape doesn't have an empty data column
+    for (int row = 0; row < shape->get_height(); row++) {
+      for (int col = 0; col < overhang; col++) {
+        if (shape->shapedata(row, col) == '#')
+	  return(true);
+      }
+    }
+  }
+
   // We're off the right edge. 
   if ((start_x + shape->get_width()) > grid_width) {
     int overhang = start_x + shape->get_width() - grid_width;
