@@ -40,7 +40,7 @@ int main( int argc, char* args[] )
 	shape = new RightEll();
 	shapes_vector.push_back(shape);
 
-	Grid my_grid(20,20);
+	Grid my_grid(10,10);
 
 	bool quit = false;
 	int selected_shape = 0;
@@ -91,11 +91,12 @@ int main( int argc, char* args[] )
 		// update the x and y
 		if (tok_cnt < 2) {
 			x++;
-			if (x > my_grid.width()) {
+			if (my_grid.out_of_bounds(x, y, shapes_vector[selected_shape])) {
 				x = 0; y++;
 			}
-			if (y > my_grid.height())
+			if (my_grid.out_of_bounds(x, y, shapes_vector[selected_shape])) {
 				y = 0;
+			}
 		}
 		// If user specified the rotation
 		// then rotate right for now

@@ -51,3 +51,15 @@ void Grid::draw(int start_x, int start_y, Shape *shape) {
     }
   }
 }
+
+// out_of_bounds(start_x, start_y, shape)
+bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
+  if ((start_x + shape->get_width()) > grid_width) {
+    return(true);
+  }
+  if ((start_y + shape->get_height()) > grid_height) {
+    return(true);
+  }
+  return(false);
+  // TODO: Work the empty parts of the rotation
+}
