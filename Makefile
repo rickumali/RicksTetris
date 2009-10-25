@@ -52,3 +52,6 @@ testshapedata: testshapedata.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant
 
 clean:
 	rm -f *.o *.exe *~ stdout.txt stderr.txt
+
+tags:
+	/c/ctags58/ctags.exe *.cpp *.h
