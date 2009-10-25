@@ -4,6 +4,9 @@ CC = g++
 CPPFLAGS = -g -I\MinGW\include\SDL
 LOADLIBES = -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib -lSDL
 
+SHAPES = Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
+SDLSHAPES = SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o
+
 # This just draws a grid
 firstgrid: firstgrid.o
 
@@ -20,18 +23,18 @@ movingpieces: movingpieces.o
 virtualfunc: virtualfunc.o
 
 # This ia test program of a refactored approach to shapes
-testshapedata: testshapedata.o
+testshapedata: testshapedata.o $(SHAPES)
 
 # This is a command line tool to exercise the individual shapes
 # It draws the shapes in a character on the command line screen
-testshape: testshape.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
+testshape: testshape.o 
 
 # This is a program that demonstrates each of the objects on a "big" grid
-testsdlshape: testsdlshape.o Shape.o Square.o SDLSquare.o Pyramid.o SDLPyramid.o LeftSlant.o SDLLeftSlant.o RightSlant.o SDLRightSlant.o LongRow.o SDLLongRow.o LeftEll.o SDLLeftEll.o RightEll.o SDLRightEll.o putpixel.o
+testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o
 
 # This tests the shapes "falling" based on gravity. Use 'f' for Faster
 # and 's' for slower
-testgravity: testgravity.o Shape.o Square.o SDLSquare.o Pyramid.o SDLPyramid.o LeftSlant.o SDLLeftSlant.o RightSlant.o SDLRightSlant.o LongRow.o SDLLongRow.o LeftEll.o SDLLeftEll.o RightEll.o SDLRightEll.o putpixel.o Timer.o
+testgravity: testgravity.o $(SHAPES) $(SDLSHAPES) putpixel.o Timer.o
 
 # This is my attempt to test collision with the edges. I am beginning to 
 # abandon the adjust_x and adjust_y methods found in putpixel().
@@ -45,10 +48,7 @@ testnrand: testnrand.o nrand.o
 testinput: testinput.o
 
 # This tests a simple 'character-based' grid
-testchargrid: testchargrid.o Grid.o Square.o Shape.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
-
-# This tests the new form shapedata() method in Shape
-testshapedata: testshapedata.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
+testchargrid: testchargrid.o $(SHAPES) Grid.o
 
 clean:
 	rm -f *.o *.exe *~ stdout.txt stderr.txt
