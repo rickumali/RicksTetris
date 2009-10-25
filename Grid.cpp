@@ -47,7 +47,9 @@ void Grid::draw(int start_x, int start_y, Shape *shape) {
   
   for (int row = 0; row < shape->get_height(); row++) {
     for (int col = 0; col < shape->get_width(); col++) {
-      grid_data[(start_x + col) + ((start_y + row) * grid_width)] = shape->shapedata(row, col);
+      int ary_data = (start_x + col) + ((start_y + row) * grid_width);
+      if ((ary_data >= 0) && (ary_data < grid_data.length()))
+        grid_data[(start_x + col) + ((start_y + row) * grid_width)] = shape->shapedata(row, col);
     }
   }
 }
@@ -70,6 +72,7 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
 	  return(true);
       }
     }
+    return (false);
   }
 
   // We're off the right edge. 
@@ -82,6 +85,7 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
 	  return(true);
       }
     }
+    return (false);
   }
 
   // We're off the BOTTOM edge.
@@ -94,7 +98,8 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
 	  return(true);
       }
     }
-  }
-  return(false);
-  // TODO: Work the empty parts of the rotation
+    return(false);
+  } 
+
+  return(false); // I needed this! Is my code bad?
 }
