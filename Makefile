@@ -4,8 +4,8 @@ CC = g++
 CPPFLAGS = -g -I\MinGW\include\SDL
 LOADLIBES = -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib -lSDL
 
-SHAPES = Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o
-SDLSHAPES = SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o
+SHAPES = Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o Grid.o
+SDLSHAPES = SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o SDLGrid.o
 
 # This just draws a grid
 firstgrid: firstgrid.o
@@ -30,7 +30,7 @@ testshapedata: testshapedata.o $(SHAPES)
 testshape: testshape.o 
 
 # This is a program that demonstrates each of the objects on a "big" grid
-testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o
+testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o 
 
 # This tests the shapes "falling" based on gravity. Use 'f' for Faster
 # and 's' for slower
