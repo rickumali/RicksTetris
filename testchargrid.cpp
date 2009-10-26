@@ -105,7 +105,7 @@ int main( int argc, char* args[] )
 		}
 
 		cout << "----------\n";
-		my_grid.draw(x, y, shapes_vector[selected_shape]);
+		my_grid.place(x, y, shapes_vector[selected_shape]);
 		my_grid.draw();
 	}
 }
