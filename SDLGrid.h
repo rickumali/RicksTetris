@@ -6,5 +6,5 @@ class SDLGrid : public Grid {
     SDL_Surface *surface;
   public:
     SDLGrid(SDL_Surface *);
-    void draw_grid();
+    void draw();
 };
