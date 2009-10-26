@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SDL/SDL.h"
 #include "SDL_ttf.h"
+#include "SDLGrid.h"
 #include "SDLSquare.h"
 #include "SDLPyramid.h"
 #include "SDLLeftSlant.h"
@@ -24,7 +25,6 @@ TTF_Font *font;
 
 void write_instruction_line(SDL_Surface *);
 void write_status_line(SDL_Surface *, char *);
-void draw_grid(SDL_Surface *);
 
 int main( int argc, char* args[] )
 {
@@ -62,6 +62,9 @@ int main( int argc, char* args[] )
     
     //Set the window caption
     SDL_WM_SetCaption( "testsdlshape", NULL );
+
+    // Create the Grid
+	SDLGrid grid(screen);
 
     // Create a shape
     Shape* square = new SDLSquare(screen);
@@ -143,15 +146,16 @@ int main( int argc, char* args[] )
     		    return 1;
     		}
 	    }
-	    draw_grid(screen);
-	    write_instruction_line(screen);
-	    square->draw(piece_x[0],piece_y[0]);
-	    pyramid->draw(piece_x[1],piece_y[1]);
-	    leftslant->draw(piece_x[2],piece_y[2]);
-	    rightslant->draw(piece_x[3],piece_y[3]);
-	    longrow->draw(piece_x[4],piece_y[4]);
-	    leftell->draw(piece_x[5],piece_y[5]);
-	    rightell->draw(piece_x[6],piece_y[6]);
+
+	    // write_instruction_line(screen);
+	    grid.place(piece_x[0],piece_y[0], square);
+		grid.draw();
+	    // pyramid->draw(piece_x[1],piece_y[1]);
+	    // leftslant->draw(piece_x[2],piece_y[2]);
+	    // rightslant->draw(piece_x[3],piece_y[3]);
+	    // longrow->draw(piece_x[4],piece_y[4]);
+	    // leftell->draw(piece_x[5],piece_y[5]);
+	    // rightell->draw(piece_x[6],piece_y[6]);
 	    if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	    }
@@ -169,42 +173,6 @@ int main( int argc, char* args[] )
     SDL_Quit();
     
     return 0;    
-}
-
-/*
- * Draws a grid on the surface
- * NOTE: Based on:
- *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO
- */
-void draw_grid(SDL_Surface *surface) {
-    /* Map the color yellow to this display (R=0xff, G=0xFF, B=0x00)
-     * Note: If the display is palettized, you must set the palette first.
-     * NOTE: Softened the color.
-     */
-    Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
-    Uint32 blackColor = SDL_MapRGB(surface->format, 0, 0, 0);
-
-    /* Draw the entire screen EXCEPT for the status line area */
-    SDL_Rect all_but_status_line_offset;
-    all_but_status_line_offset.x = 0;
-    all_but_status_line_offset.y = 0;
-    all_but_status_line_offset.h = surface->h - GRID_SIZE;
-    all_but_status_line_offset.w = surface->w;
-    SDL_FillRect (surface, &all_but_status_line_offset, blackColor);
-
-    // The h - GRID_SIZE leaves the last two "rows" blank for an instructions line, and a status line
-    for (int y = 0; y < (surface->h - GRID_SIZE * 2); y+=1) {
-        for (int x = 0; x < surface->w; x+= 1) {
-	    if ((y+1)%GRID_SIZE==0) {
-                putpixel(surface, x, y, yellow);
-	    }
-	    if ((x+1)%GRID_SIZE==0) {
-                putpixel(surface, x, y, yellow);
-	    }
-        }
-    }
-
-    return;
 }
 
 /*
