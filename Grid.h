@@ -13,7 +13,7 @@ class Grid {
     	Grid();
     	Grid(int, int);
     	void draw();
-    	void draw(int, int, Shape *);
+    	void place(int, int, Shape *);
     	bool out_of_bounds(int, int, Shape *);
     	int height();
     	int width();

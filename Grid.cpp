@@ -40,8 +40,8 @@ void Grid::draw() {
   }
 }
 
-// draw(start_x, start_y, shape)
-void Grid::draw(int start_x, int start_y, Shape *shape) {
+// place(start_x, start_y, shape)
+void Grid::place(int start_x, int start_y, Shape *shape) {
   for (int i = 0; i < grid_height * grid_width; i++) 
     grid_data[i] = '.';
   
