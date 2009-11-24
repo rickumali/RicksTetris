@@ -148,14 +148,11 @@ int main( int argc, char* args[] )
 	    }
 
 	    // write_instruction_line(screen);
-	    grid.place(piece_x[0],piece_y[0], square);
+	    grid.place(
+			piece_x[selected_shape->get_piece_type()-1],
+			piece_y[selected_shape->get_piece_type()-1], 
+			selected_shape);
 		grid.draw();
-	    // pyramid->draw(piece_x[1],piece_y[1]);
-	    // leftslant->draw(piece_x[2],piece_y[2]);
-	    // rightslant->draw(piece_x[3],piece_y[3]);
-	    // longrow->draw(piece_x[4],piece_y[4]);
-	    // leftell->draw(piece_x[5],piece_y[5]);
-	    // rightell->draw(piece_x[6],piece_y[6]);
 	    if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	    }
