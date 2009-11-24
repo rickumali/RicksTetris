@@ -55,51 +55,23 @@ void Grid::place(int start_x, int start_y, Shape *shape) {
 }
 
 // out_of_bounds(start_x, start_y, shape)
+//
+// TODO: Check if we should check out of bounds for "values" over the top
 bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
-  // TODO: overhang must NOT be > shape's height or width
-  // We're off the left edge. 
-  if (start_x < 0) {
-    int overhang = abs(start_x);
-
-    if (overhang > shape->get_width()) {
-	return(true); // TODO: Do I even need this?
+  bool out_of_bounds = false;
+  for (int row = 0; row < shape->get_height(); row++) {
+    for (int col = 0; col < shape->get_width(); col++) {
+	  int grid_x = start_x + col;
+	  int grid_y = start_y + row;
+	  if (shape->shapedata(row, col) == '#') {
+		if ((grid_x < 0) || (grid_x >= grid_width) ||
+			(grid_y < 0) || (grid_y >= grid_height)) {
+			return true;
+		} else {
+		}
+	  } else {
+	  }
     }
-
-    // Check that the shape doesn't have an empty data column
-    for (int row = 0; row < shape->get_height(); row++) {
-      for (int col = 0; col < overhang; col++) {
-        if (shape->shapedata(row, col) == '#')
-	  return(true);
-      }
-    }
-    return (false);
   }
-
-  // We're off the right edge. 
-  if ((start_x + shape->get_width()) > grid_width) {
-    int overhang = start_x + shape->get_width() - grid_width;
-    // Check that the shape doesn't have an empty data column
-    for (int row = 0; row < shape->get_height(); row++) {
-      for (int col = shape->get_width() - overhang; col < shape->get_width(); col++) {
-        if (shape->shapedata(row, col) == '#')
-	  return(true);
-      }
-    }
-    return (false);
-  }
-
-  // We're off the BOTTOM edge.
-  if ((start_y + shape->get_height()) > grid_height) {
-    int overhang = start_y + shape->get_height() - grid_height;
-    // Check that the shape doesn't have an empty data rows
-    for (int row = shape->get_height() - overhang; row < shape->get_height(); row++) {
-      for (int col = 0; col < shape->get_width(); col++) {
-        if (shape->shapedata(row, col) == '#')
-	  return(true);
-      }
-    }
-    return(false);
-  } 
-
-  return(false); // I needed this! Is my code bad?
+  return false;
 }
