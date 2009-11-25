@@ -75,9 +75,9 @@ int main( int argc, char* args[] )
     Shape* leftell = new SDLLeftEll(screen);
     Shape* rightell = new SDLRightEll(screen);
     
-    int piece_x[] = { 1, 20, 13,  6, 14, 24, 18 }; 
-    int piece_y[] = { 1,  4,  3, 18, 10, 15, 15 }; 
-    
+    int piece_x[] = { 1, 3, 5, 7, 2, 4, 2 }; 
+    int piece_y[] = { 1, 3, 5, 7, 9, 9, 11 }; 
+
     bool quit = false;
     Shape *selected_shape = square;
     while (quit == false) {
@@ -118,19 +118,31 @@ int main( int argc, char* args[] )
 					    break;
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
-					    write_status_line(screen, "Rotate right.");
+				        if (!grid.out_of_bounds(piece_x[selected_shape->get_piece_type() -1],piece_y[selected_shape->get_piece_type()-1],selected_shape)) {
+				        	write_status_line(screen, "Rotate right.");
+						} else {
+							selected_shape->rotate_left();
+						}
 					    break;
 				    case SDLK_DOWN:
 					    selected_shape->rotate_left();
-					    write_status_line(screen, "Rotate left.");
+				        if (!grid.out_of_bounds(piece_x[selected_shape->get_piece_type() -1],piece_y[selected_shape->get_piece_type()-1],selected_shape)) {
+				        	write_status_line(screen, "Rotate left.");
+						} else {
+							selected_shape->rotate_right();
+						}
 					    break;
 				    case SDLK_LEFT:
-				        piece_x[selected_shape->get_piece_type() - 1] -= 1;
-				        write_status_line(screen, "Move left.");
+				        if (!grid.out_of_bounds(piece_x[selected_shape->get_piece_type() -1] - 1,piece_y[selected_shape->get_piece_type()-1],selected_shape)) {
+				        	piece_x[selected_shape->get_piece_type() - 1] -= 1;
+				        	write_status_line(screen, "Move left.");
+						}
 					    break;
 				    case SDLK_RIGHT:
-				        piece_x[selected_shape->get_piece_type() - 1] += 1;
-				        write_status_line(screen, "Move right.");
+				        if (!grid.out_of_bounds(piece_x[selected_shape->get_piece_type() -1] + 1,piece_y[selected_shape->get_piece_type()-1],selected_shape)) {
+				        	piece_x[selected_shape->get_piece_type() - 1] += 1;
+							write_status_line(screen, "Move right.");
+						}
 					    break;
 				    case SDLK_q:
 					    quit = true;
