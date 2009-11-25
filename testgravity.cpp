@@ -3,6 +3,7 @@
 #include <cstdio>
 #include "SDL/SDL.h"
 #include "SDL_ttf.h"
+#include "SDLGrid.h"
 #include "SDLSquare.h"
 #include "SDLPyramid.h"
 #include "SDLLeftSlant.h"
@@ -69,6 +70,9 @@ int main( int argc, char* args[] )
     //Set the window caption
     SDL_WM_SetCaption( "testgravity", NULL );
 
+	// Create the Grid
+	SDLGrid grid(screen);
+
     // Create a shape
     Shape* square = new SDLSquare(screen);
     Shape* pyramid = new SDLPyramid(screen);
@@ -86,6 +90,7 @@ int main( int argc, char* args[] )
     int gravity = 1; // rows per second; can be fractional
 
     char status[50]; // Used for status line
+    sprintf(status, "testgravity");
 
     // Timer
     Timer fps;
@@ -144,19 +149,31 @@ int main( int argc, char* args[] )
 					    break;
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
-					    sprintf(status, "Rotate right!");
+				        if (!grid.out_of_bounds(x,y,selected_shape)) {
+				        	write_status_line(screen, "Rotate right.");
+						} else {
+							selected_shape->rotate_left();
+						}
 					    break;
 				    case SDLK_DOWN:
 					    selected_shape->rotate_left();
-					    sprintf(status, "Rotate left!");
+				        if (!grid.out_of_bounds(x,y,selected_shape)) {
+				        	write_status_line(screen, "Rotate left.");
+						} else {
+							selected_shape->rotate_right();
+						}
 					    break;
 				    case SDLK_LEFT:
-				        x--;
-					    sprintf(status, "Move left!");
+				        if (!grid.out_of_bounds(x - 1,y,selected_shape)) {
+				        	x--;
+				        	write_status_line(screen, "Move left.");
+						}
 					    break;
 				    case SDLK_RIGHT:
-				        x++;
-					    sprintf(status, "Move right.");
+				        if (!grid.out_of_bounds(x + 1,y,selected_shape)) {
+				        	x++;
+				        	write_status_line(screen, "Move right.");
+						}
 					    break;
 				    case SDLK_s:
 					if (--gravity < 1) {
@@ -179,8 +196,10 @@ int main( int argc, char* args[] )
 
             if( fps.get_ticks() > (1000/gravity) )
             {
-	        y++;
-	        if (y > 22) {
+		if (!grid.out_of_bounds(x,y+1,selected_shape)) {
+			y++;
+			write_status_line(screen, "Move right.");
+		} else {
 		        y = -1 * selected_shape->get_height();
 	        }
 		fps.start(); // Restart the clock
@@ -194,10 +213,11 @@ int main( int argc, char* args[] )
     		}
 	    }
 
-	    draw_grid(screen);
+	    // draw_grid(screen);
 	    write_status_line(screen, status);
 	    write_instruction_line(screen);
-	    selected_shape->draw(x, y);
+	    grid.place(x, y, selected_shape);
+		grid.draw();
 
 	    if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
@@ -216,47 +236,6 @@ int main( int argc, char* args[] )
     SDL_Quit();
     
     return 0;    
-}
-
-/*
- * Draws a grid on the surface
- * NOTE: Based on:
- *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO
- */
-void draw_grid(SDL_Surface *surface) {
-    /* Map the color yellow to this display (R=0xff, G=0xFF, B=0x00)
-     * Note: If the display is palettized, you must set the palette first.
-     * NOTE: Softened the color.
-     */
-    Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
-    Uint32 blackColor = SDL_MapRGB(surface->format, 0, 0, 0);
-
-    /* Draw the entire screen EXCEPT for the status line area */
-    SDL_Rect all_but_status_line_offset;
-    all_but_status_line_offset.x = 0;
-    all_but_status_line_offset.y = 0;
-    all_but_status_line_offset.h = surface->h;
-    all_but_status_line_offset.w = surface->w;
-    SDL_FillRect (surface, &all_but_status_line_offset, blackColor);
-
-    // The (h - GRID_SIZE * 2) leaves the last two "rows" blank for an
-    // instructions line and a status line
-    // The (x - GRID_SIZE * 22) leaves the game grid; the logic ic backwards in 
-    // version of the code, but y is the height, and it says the height is 0 to 
-    // "2 lines from the bottom". x is the width, and it says the grid should be
-    // drawn from 0 (left) to 22 columns from the right. LAME!
-    for (int y = 0; y < (surface->h - GRID_SIZE * 2); y+=1) {
-        for (int x = 0; x < (surface->w - GRID_SIZE * 22); x+= 1) {
-	    if ((y+1)%GRID_SIZE==0) {
-                putpixel(surface, x, y, yellow);
-	    }
-	    if ((x+1)%GRID_SIZE==0) {
-                putpixel(surface, x, y, yellow);
-	    }
-        }
-    }
-
-    return;
 }
 
 /*
