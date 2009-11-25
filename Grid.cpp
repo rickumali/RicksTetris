@@ -65,7 +65,7 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
 	  int grid_y = start_y + row;
 	  if (shape->shapedata(row, col) == '#') {
 		if ((grid_x < 0) || (grid_x >= grid_width) ||
-			(grid_y < 0) || (grid_y >= grid_height)) {
+			(grid_y >= grid_height)) {
 			return true;
 		} else {
 		}
