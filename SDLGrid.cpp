@@ -4,6 +4,8 @@
 
 /*
  * This is the grid, in SDL.
+ *
+ * TODO: Figure out how to initialize this to a different size. It's a C++ syntax thing.
  * 
  */
 SDLGrid::SDLGrid(SDL_Surface *surface_in) : Grid() 
