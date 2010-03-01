@@ -1,3 +1,7 @@
+/*
+ * This program is the comprehensive program to examine the lower level
+ * Shape objects (i.e. the non-SDL shapes). 
+ */
 #include <iostream>
 #include <vector>
 
@@ -102,6 +106,9 @@ int main( int argc, char* args[] )
 		// then rotate right for now
 		if (rot != -1) {
 			shapes_vector[selected_shape]->rotate_right();
+			if (my_grid.out_of_bounds(x, y, shapes_vector[selected_shape])) {
+				shapes_vector[selected_shape]->rotate_left(); // Don't rotate if out of bounds
+			}
 		}
 
 		cout << "----------\n";

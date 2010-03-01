@@ -1,3 +1,7 @@
+/*
+ * This is a low-level test of the shape data (the non-SDL shape classes).
+ * NOTE: No grid is used. The shapes are just drawn.
+ */
 #include "Square.h"
 #include "Pyramid.h"
 #include "LeftSlant.h"
@@ -67,12 +71,12 @@ int main( int argc, char* args[] )
 
 		if (choice == 'l') {
 			shapes_vector[selected_shape]->rotate_left();
-			shapes_vector[selected_shape]->draw(2,2);
+			shapes_vector[selected_shape]->draw();
 		} else if (choice == 'r'){
 			shapes_vector[selected_shape]->rotate_right();
-			shapes_vector[selected_shape]->draw(2,2);
+			shapes_vector[selected_shape]->draw();
 		} else {
-			shapes_vector[selected_shape]->draw(2,2);
+			shapes_vector[selected_shape]->draw();
 		}
 	}
 }
