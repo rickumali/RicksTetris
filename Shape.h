@@ -12,7 +12,7 @@ class Shape {
     	virtual int get_piece_type() = 0;
     	virtual int rotate_left() = 0;
     	virtual int rotate_right() = 0;
-    	virtual void draw(int, int) = 0;
+    	virtual void draw() = 0;
     	int get_height();
     	int get_width();
 	char shapedata(int, int);
