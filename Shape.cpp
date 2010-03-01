@@ -20,9 +20,9 @@ int Shape::get_width() {
 void Shape::rotate(int direction) {
   rotation += direction;
   if (rotation < 0) {
-	  rotation = 3;
+    rotation = 3;
   } else if (rotation > 3) {
-	  rotation = 0;
+    rotation = 0;
   }
 }
 
