@@ -40,7 +40,7 @@ int RightSlant::rotate_right()
   rotate(1);
 }
 
-void RightSlant::draw(int start_x, int start_y) 
+void RightSlant::draw()
 {
   for (int row = 0; row < shape_height[rotation]; row++) {
     for (int col = 0; col < shape_width[rotation]; col++) {

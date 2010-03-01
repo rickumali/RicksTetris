@@ -40,7 +40,7 @@ int RightEll::rotate_right()
   rotate(1);
 }
 
-void RightEll::draw(int start_x, int start_y) 
+void RightEll::draw()
 {
   for (int row = 0; row < shape_height[rotation]; row++) {
     for (int col = 0; col < shape_width[rotation]; col++) {

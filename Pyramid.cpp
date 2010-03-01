@@ -33,7 +33,7 @@ int Pyramid::rotate_right()
 }
 
 // NOTE: The "3" is a hardcoded.
-void Pyramid::draw(int start_x, int start_y) 
+void Pyramid::draw()
 {
   for (int row = 0; row < 3; row++) {
     for (int col = 0; col < 3; col++) {
