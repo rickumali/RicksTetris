@@ -45,8 +45,8 @@ void Grid::place(int start_x, int start_y, Shape *shape) {
   for (int i = 0; i < grid_height * grid_width; i++) 
     grid_data[i] = '.';
   
-  for (int row = 0; row < shape->get_height(); row++) {
-    for (int col = 0; col < shape->get_width(); col++) {
+  for (int row = 0; row < shape->height(); row++) {
+    for (int col = 0; col < shape->width(); col++) {
       int ary_data = (start_x + col) + ((start_y + row) * grid_width);
       if ((ary_data >= 0) && (ary_data < grid_data.length()))
         grid_data[(start_x + col) + ((start_y + row) * grid_width)] = shape->shapedata(row, col);
@@ -59,8 +59,8 @@ void Grid::place(int start_x, int start_y, Shape *shape) {
 // TODO: Check if we should check out of bounds for "values" over the top
 bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
   bool out_of_bounds = false;
-  for (int row = 0; row < shape->get_height(); row++) {
-    for (int col = 0; col < shape->get_width(); col++) {
+  for (int row = 0; row < shape->height(); row++) {
+    for (int col = 0; col < shape->width(); col++) {
 	  int grid_x = start_x + col;
 	  int grid_y = start_y + row;
 	  if (shape->shapedata(row, col) == '#') {
@@ -75,3 +75,8 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
   }
   return false;
 }
+
+char Grid::griddata(int row, int col) {
+      return (grid_data[(row*grid_width)+col]);
+}
+
