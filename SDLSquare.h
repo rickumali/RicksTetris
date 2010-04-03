@@ -1,10 +1,7 @@
 #include "SDL/SDL.h"
-#include "Square.h"
+#include "SDLShape.h"
 
-class SDLSquare : public Square {
-  private:
-    SDL_Surface *surface;
+class SDLSquare : public SDLShape {
   public:
     SDLSquare(SDL_Surface *);
-    void draw(int, int);
 };
