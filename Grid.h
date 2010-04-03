@@ -5,7 +5,7 @@
 using std::string;
 
 class Grid {
-    protected:
+    private:
         string grid_data;
         int grid_height;
         int grid_width;
@@ -17,5 +17,6 @@ class Grid {
     	bool out_of_bounds(int, int, Shape *);
     	int height();
     	int width();
+		char griddata(int, int);
 };
 #endif
