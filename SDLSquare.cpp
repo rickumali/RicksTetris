@@ -7,8 +7,7 @@
  */
 SDLSquare::SDLSquare(SDL_Surface *surface_in) : SDLShape() 
 {
-  shape = new Square();
-  surface = surface_in;
-  color = SDL_MapRGB(surface->format, 0xFF, 0xDE, 0x31);
+  set_shape(new Square());
+  set_surface(surface_in);
+  set_color(SDL_MapRGB(surface_in->format, 0xFF, 0xDE, 0x31));
 }
-
