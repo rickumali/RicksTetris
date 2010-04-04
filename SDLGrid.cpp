@@ -8,9 +8,11 @@
  * TODO: Figure out how to initialize this to a different size. It's a C++ syntax thing.
  * 
  */
-SDLGrid::SDLGrid(SDL_Surface *surface_in) : Grid() 
+SDLGrid::SDLGrid(SDL_Surface *surface_in)
 {
-  surface = surface_in;
+  set_grid(new Grid());
+  set_surface(surface_in);
+  set_shape_color(SDL_MapRGB(surface->format, 0xFF, 0xDE, 0x31));
 }
 
 /*
@@ -25,21 +27,20 @@ void SDLGrid::draw() {
      */
     Uint32 black = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
     Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
-    Uint32 color = SDL_MapRGB(surface->format, 0xFF, 0xDE, 0x31);
 
     /*
      * This is _based_ on testgravity.cpp
      *
      * TODO: Reflect shape of grid based on grid's height/weight
      */
-    for (int y = 0; y < grid_height; y++) {
-        for (int x = 0; x < grid_width; x++) {
+    for (int y = 0; y < grid->height(); y++) {
+        for (int x = 0; x < grid->width(); x++) {
 			// Check if the "grid_data" contains a '#'. If so, then draw a filled in
 			// grid square, else draw "black"
-			if (grid_data[(y * grid_width) + x] == '#') {
+			if (grid->griddata(y,x) == '#') {
 				for (int j = 0; j < GRID_SIZE; j++) {
 					for (int k = 0; k < GRID_SIZE; k++) {
-          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, color);
+          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, shape_color);
 					}
 				}
 			} else {
@@ -54,8 +55,8 @@ void SDLGrid::draw() {
                 putpixel(surface, (x*GRID_SIZE)+j, (y*GRID_SIZE), yellow);
                 putpixel(surface, (x*GRID_SIZE)+j, (y*GRID_SIZE)+GRID_SIZE, yellow);
 				// If we're at the last "row", then draw one more row below
-				if ((y+1) == grid_height) {
-					putpixel(surface, (x*GRID_SIZE)+j, (grid_height*GRID_SIZE), yellow);
+				if ((y+1) == grid->height()) {
+					putpixel(surface, (x*GRID_SIZE)+j, (grid->height()*GRID_SIZE), yellow);
 				}
 	    	}
 	    	for (int j = 0; j < GRID_SIZE; j++) {
@@ -64,10 +65,33 @@ void SDLGrid::draw() {
                 putpixel(surface, (x*GRID_SIZE)+GRID_SIZE, (y*GRID_SIZE)+j, yellow);
 				// If we're at the last "row", then draw one more row below
 				// NOTE: This seeminly puts a last DOT in the lower right hand corner
-				if ((y+1) == grid_height) {
-					putpixel(surface, (x*GRID_SIZE)+GRID_SIZE, (grid_height*GRID_SIZE), yellow);
+				if ((y+1) == grid->height()) {
+					putpixel(surface, (x*GRID_SIZE)+GRID_SIZE, (grid->height()*GRID_SIZE), yellow);
 				}
 	    	}
         }
     }
+}
+
+void SDLGrid::place(int x, int y, SDLShape *shape) {
+	grid->place(x, y, shape->get_shape());
+	set_shape_color(shape->get_color());
+}
+
+bool SDLGrid::out_of_bounds(int x, int y, SDLShape *shape) {
+	return(grid->out_of_bounds(x, y, shape->get_shape()));
+}
+
+void SDLGrid::set_grid(Grid *grid_in) {
+  grid = grid_in;
+}
+
+// set_surface()
+void SDLGrid::set_surface(SDL_Surface *surface_in) {
+  surface = surface_in;
+}
+
+// set_shape_color()
+void SDLGrid::set_shape_color(Uint32 color_in) {
+  shape_color = color_in;
 }
