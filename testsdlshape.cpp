@@ -67,19 +67,19 @@ int main( int argc, char* args[] )
 	SDLGrid grid(screen);
 
     // Create a shape
-    Shape* square = new SDLSquare(screen);
-    Shape* pyramid = new SDLPyramid(screen);
-    Shape* leftslant = new SDLLeftSlant(screen);
-    Shape* rightslant = new SDLRightSlant(screen);
-    Shape* longrow = new SDLLongRow(screen);
-    Shape* leftell = new SDLLeftEll(screen);
-    Shape* rightell = new SDLRightEll(screen);
+    SDLShape* square = new SDLSquare(screen);
+    SDLShape* pyramid = new SDLPyramid(screen);
+    SDLShape* leftslant = new SDLLeftSlant(screen);
+    SDLShape* rightslant = new SDLRightSlant(screen);
+    SDLShape* longrow = new SDLLongRow(screen);
+    SDLShape* leftell = new SDLLeftEll(screen);
+    SDLShape* rightell = new SDLRightEll(screen);
     
     int piece_x[] = { 1, 3, 5, 7, 2, 4, 2 }; 
     int piece_y[] = { 1, 3, 5, 7, 9, 9, 11 }; 
 
     bool quit = false;
-    Shape *selected_shape = square;
+    SDLShape *selected_shape = square;
     while (quit == false) {
 	    while (SDL_PollEvent(&event)) {
 		    if (event.type == SDL_QUIT) {

@@ -24,5 +24,6 @@ class SDLShape {
 		void set_color(Uint32);
 		SDL_Surface *get_surface();
 		Uint32 get_color();
+		int get_piece_type();
 };
 #endif

@@ -56,3 +56,8 @@ void SDLShape::set_color(Uint32 color_in) {
 Uint32 SDLShape::get_color() {
   return(color);
 }
+
+// get_piece_type()
+int SDLShape::get_piece_type() {
+  return(shape->get_piece_type());
+}

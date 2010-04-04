@@ -9,8 +9,8 @@ SHAPES_SOURCE = Shape.cpp Square.cpp Pyramid.cpp LeftSlant.cpp RightSlant.cpp Lo
 SHAPES = Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o Grid.o
 
 SDLSHAPES_HEADERS = SDLSquare.h SDLPyramid.h SDLLeftSlant.h SDLRightSlant.h SDLLongRow.h SDLLeftEll.h SDLRightEll.h SDLGrid.h
-SDLSHAPES_SOURCE = SDLSquare.cpp SDLPyramid.cpp SDLLeftSlant.cpp SDLRightSlant.cpp SDLLongRow.cpp SDLLeftEll.cpp SDLRightEll.cpp SDLGrid.cpp
-SDLSHAPES = SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o SDLGrid.o
+SDLSHAPES_SOURCE = SDLShape.cpp SDLSquare.cpp SDLPyramid.cpp SDLLeftSlant.cpp SDLRightSlant.cpp SDLLongRow.cpp SDLLeftEll.cpp SDLRightEll.cpp SDLGrid.cpp
+SDLSHAPES = SDLShape.o SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o SDLGrid.o
 
 #------------------------------
 # Character-based Shape Testers
