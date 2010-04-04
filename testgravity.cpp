@@ -74,14 +74,14 @@ int main( int argc, char* args[] )
 	SDLGrid grid(screen);
 
     // Create a shape
-    Shape* square = new SDLSquare(screen);
-    Shape* pyramid = new SDLPyramid(screen);
-    Shape* leftslant = new SDLLeftSlant(screen);
-    Shape* rightslant = new SDLRightSlant(screen);
-    Shape* longrow = new SDLLongRow(screen);
-    Shape* leftell = new SDLLeftEll(screen);
-    Shape* rightell = new SDLRightEll(screen);
-    Shape *selected_shape = square;
+    SDLShape* square = new SDLSquare(screen);
+    SDLShape* pyramid = new SDLPyramid(screen);
+    SDLShape* leftslant = new SDLLeftSlant(screen);
+    SDLShape* rightslant = new SDLRightSlant(screen);
+    SDLShape* longrow = new SDLLongRow(screen);
+    SDLShape* leftell = new SDLLeftEll(screen);
+    SDLShape* rightell = new SDLRightEll(screen);
+    SDLShape *selected_shape = square;
     
     // Starting location for ALL shapes
     int x = 5;
