@@ -7,7 +7,7 @@
 #ifndef GUARD_sdlshape_h
 #define GUARD_sdlshape_h
 class SDLShape {
-    protected:
+    private:
         Shape *shape;
         SDL_Surface *surface;
         Uint32 color;
@@ -19,5 +19,10 @@ class SDLShape {
     	int get_width();
     	char shapedata(int, int);
     	Shape *get_shape();
+		void set_shape(Shape *);
+		void set_surface(SDL_Surface *);
+		void set_color(Uint32);
+		SDL_Surface *get_surface();
+		Uint32 get_color();
 };
 #endif
