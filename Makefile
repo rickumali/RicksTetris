@@ -42,6 +42,17 @@ movingsquare: movingsquare.o
 # This program moves a Tetris square. Does NOT use SDL shape objects or classes.
 movingpieces: movingpieces.o
 
+# This tests ONE SDLShape (used this to initially test refactored shapes)
+# Manually replace the shape with the one you want to use
+
+# testoneshape: testoneshape.o Shape.o SDLShape.o Square.o SDLSquare.o Grid.o SDLGrid.o putpixel.o 
+testoneshape: testoneshape.o Shape.o SDLShape.o Pyramid.o SDLPyramid.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o LeftSlant.o SDLLeftSlant.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o RightSlant.o SDLRightSlant.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o LongRow.o SDLLongRow.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o LeftEll.o SDLLeftEll.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o RightEll.o SDLRightEll.o Grid.o SDLGrid.o putpixel.o 
+
 # This is a program that demonstrates each of the objects on a "big" grid
 testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o 
 
@@ -66,6 +77,9 @@ testinput: testinput.o
 
 # This program tests virtual functions
 virtualfunc: virtualfunc.o
+
+# This program tests the refactored initialization
+testinitializer: testinitializer.o
 
 clean:
 	rm -f *.o *.exe *~ stdout.txt stderr.txt

@@ -1,10 +1,7 @@
 #include "SDL/SDL.h"
-#include "Pyramid.h"
+#include "SDLShape.h"
 
-class SDLPyramid : public Pyramid {
-  private:
-    SDL_Surface *surface;
+class SDLPyramid : public SDLShape {
   public:
     SDLPyramid(SDL_Surface *);
-    void draw(int, int);
 };
