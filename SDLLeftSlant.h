@@ -1,10 +1,7 @@
 #include "SDL/SDL.h"
-#include "LeftSlant.h"
+#include "SDLShape.h"
 
-class SDLLeftSlant : public LeftSlant {
-  private:
-    SDL_Surface *surface;
+class SDLLeftSlant : public SDLShape {
   public:
     SDLLeftSlant(SDL_Surface *);
-    void draw(int, int);
 };

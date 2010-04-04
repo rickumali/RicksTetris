@@ -1,10 +1,7 @@
 #include "SDL/SDL.h"
-#include "LeftEll.h"
+#include "SDLShape.h"
 
-class SDLLeftEll : public LeftEll {
-  private:
-    SDL_Surface *surface;
+class SDLLeftEll : public SDLShape {
   public:
     SDLLeftEll(SDL_Surface *);
-    void draw(int, int);
 };

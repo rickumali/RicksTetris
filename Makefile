@@ -46,12 +46,12 @@ movingpieces: movingpieces.o
 # Manually replace the shape with the one you want to use
 
 # testoneshape: testoneshape.o Shape.o SDLShape.o Square.o SDLSquare.o Grid.o SDLGrid.o putpixel.o 
-testoneshape: testoneshape.o Shape.o SDLShape.o Pyramid.o SDLPyramid.o Grid.o SDLGrid.o putpixel.o 
+# testoneshape: testoneshape.o Shape.o SDLShape.o Pyramid.o SDLPyramid.o Grid.o SDLGrid.o putpixel.o 
 # testoneshape: testoneshape.o Shape.o SDLShape.o LeftSlant.o SDLLeftSlant.o Grid.o SDLGrid.o putpixel.o 
 # testoneshape: testoneshape.o Shape.o SDLShape.o RightSlant.o SDLRightSlant.o Grid.o SDLGrid.o putpixel.o 
 # testoneshape: testoneshape.o Shape.o SDLShape.o LongRow.o SDLLongRow.o Grid.o SDLGrid.o putpixel.o 
 # testoneshape: testoneshape.o Shape.o SDLShape.o LeftEll.o SDLLeftEll.o Grid.o SDLGrid.o putpixel.o 
-# testoneshape: testoneshape.o Shape.o SDLShape.o RightEll.o SDLRightEll.o Grid.o SDLGrid.o putpixel.o 
+testoneshape: testoneshape.o Shape.o SDLShape.o RightEll.o SDLRightEll.o Grid.o SDLGrid.o putpixel.o 
 
 # This is a program that demonstrates each of the objects on a "big" grid
 testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o 
