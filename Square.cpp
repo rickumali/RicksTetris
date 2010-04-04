@@ -20,6 +20,9 @@ Square::Square()
 { "##",
   "##" };
 
+  // TODO: Somewhat broken. Why "1"s in the first parameter? It's the rotatation number, no? 
+  // The code ROTATES in the direction specified by the first argument. The "1" means rotate
+  // rotate 'right'. SIGH!
   init_shape(1, 2, square);
   init_shape(1, 2, square);
   init_shape(1, 2, square);
