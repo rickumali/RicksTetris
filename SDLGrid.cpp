@@ -27,6 +27,7 @@ void SDLGrid::draw() {
      */
     Uint32 black = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
     Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
+    Uint32 grey = SDL_MapRGB(surface->format, 0x99, 0x99, 0x99);
 
     /*
      * This is _based_ on testgravity.cpp
@@ -41,6 +42,12 @@ void SDLGrid::draw() {
 				for (int j = 0; j < GRID_SIZE; j++) {
 					for (int k = 0; k < GRID_SIZE; k++) {
           				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, shape_color);
+					}
+				}
+			} else if (grid->griddata(y,x) == 'm') {
+				for (int j = 0; j < GRID_SIZE; j++) {
+					for (int k = 0; k < GRID_SIZE; k++) {
+          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, grey);
 					}
 				}
 			} else {
@@ -78,8 +85,21 @@ void SDLGrid::place(int x, int y, SDLShape *shape) {
 	set_shape_color(shape->get_color());
 }
 
+void SDLGrid::add_to_mound(int x, int y, SDLShape *shape) {
+	grid->add_to_mound(x, y, shape->get_shape());
+	set_shape_color(shape->get_color()); // ??? Do I need this?
+}
+
 bool SDLGrid::out_of_bounds(int x, int y, SDLShape *shape) {
 	return(grid->out_of_bounds(x, y, shape->get_shape()));
+}
+
+bool SDLGrid::off_the_side(int x, int y, SDLShape *shape) {
+	return(grid->off_the_side(x, y, shape->get_shape()));
+}
+
+bool SDLGrid::at_bottom_or_on_mound(int x, int y, SDLShape *shape) {
+	return(grid->at_bottom_or_on_mound(x, y, shape->get_shape()));
 }
 
 void SDLGrid::set_grid(Grid *grid_in) {

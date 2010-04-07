@@ -164,13 +164,15 @@ int main( int argc, char* args[] )
 						}
 					    break;
 				    case SDLK_LEFT:
-				        if (!grid.out_of_bounds(x - 1,y,selected_shape)) {
+				        // if (!grid.out_of_bounds(x - 1,y,selected_shape)) {
+				        if (!grid.off_the_side(x - 1,y,selected_shape)) {
 				        	x--;
 				        	write_status_line(screen, "Move left.");
 						}
 					    break;
 				    case SDLK_RIGHT:
-				        if (!grid.out_of_bounds(x + 1,y,selected_shape)) {
+				        // if (!grid.out_of_bounds(x + 1,y,selected_shape)) {
+				        if (!grid.off_the_side(x + 1,y,selected_shape)) {
 				        	x++;
 				        	write_status_line(screen, "Move right.");
 						}
@@ -196,10 +198,10 @@ int main( int argc, char* args[] )
 
             if( fps.get_ticks() > (1000/gravity) )
             {
-		if (!grid.out_of_bounds(x,y+1,selected_shape)) {
+		if (!grid.at_bottom_or_on_mound(x,y+1,selected_shape)) {
 			y++;
-			write_status_line(screen, "Move right.");
 		} else {
+			grid.add_to_mound(x,y,selected_shape);
 		        y = -1 * selected_shape->get_height();
 	        }
 		fps.start(); // Restart the clock
