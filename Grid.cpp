@@ -32,14 +32,14 @@ int Grid::width() {
 
 // draw()
 void Grid::draw() {
-  cout << "  G  R  I  D  " << endl;
+  cout << "GRID  GRID" << endl;
   for (int row = 0; row < grid_height; row++) {
     for (int col = 0; col < grid_width; col++) {
       cout << grid_data[(row * grid_width)+col];
     }
     cout << endl;
   }
-  cout << "  G  R  I  D  " << endl;
+  cout << "GRID  GRID" << endl;
 }
 
 // The grid contains these characters: ' ' or '.' for "blank" (the 
@@ -60,7 +60,7 @@ void Grid::place(int start_x, int start_y, Shape *shape) {
   for (int row = 0; row < shape->height(); row++) {
     for (int col = 0; col < shape->width(); col++) {
       int ary_data = (start_x + col) + ((start_y + row) * grid_width);
-      if ((ary_data >= 0) && (ary_data < grid_data.length()))
+      if ((ary_data >= 0) && (ary_data < grid_data.length()) && (shape->shapedata(row,col) == '#'))
         grid_data[(start_x + col) + ((start_y + row) * grid_width)] = shape->shapedata(row, col);
     }
   }
@@ -68,11 +68,12 @@ void Grid::place(int start_x, int start_y, Shape *shape) {
 
 // place(start_x, start_y, shape)
 void Grid::add_to_mound(int start_x, int start_y, Shape *shape) {
+  remove_shape_from_grid();
   for (int row = 0; row < shape->height(); row++) {
     for (int col = 0; col < shape->width(); col++) {
       int ary_data = (start_x + col) + ((start_y + row) * grid_width);
-      if ((ary_data >= 0) && (ary_data < grid_data.length()))
-        grid_data[(start_x + col) + ((start_y + row) * grid_width)] = (shape->shapedata(row, col) == '#') ? 'm' : ' ';
+      if ((ary_data >= 0) && (ary_data < grid_data.length()) && (shape->shapedata(row,col) == '#'))
+        grid_data[(start_x + col) + ((start_y + row) * grid_width)] = 'm';
     }
   }
 }
