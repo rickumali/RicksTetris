@@ -88,6 +88,7 @@ int main( int argc, char* args[] )
     int y = -1 * selected_shape->get_height();
 
     int gravity = 1; // rows per second; can be fractional
+    int old_gravity = -1; // stores the gravity when the player wants to fast drop the shape
 
     char status[50]; // Used for status line
     sprintf(status, "testgravity");
@@ -96,6 +97,7 @@ int main( int argc, char* args[] )
     Timer fps;
     
     bool quit = false;
+    bool pause = false;
     fps.start();
     while (quit == false) {
 	    while (SDL_PollEvent(&event)) {
@@ -164,14 +166,12 @@ int main( int argc, char* args[] )
 						}
 					    break;
 				    case SDLK_LEFT:
-				        // if (!grid.out_of_bounds(x - 1,y,selected_shape)) {
 				        if (!grid.off_the_side(x - 1,y,selected_shape)) {
 				        	x--;
 				        	write_status_line(screen, "Move left.");
 						}
 					    break;
 				    case SDLK_RIGHT:
-				        // if (!grid.out_of_bounds(x + 1,y,selected_shape)) {
 				        if (!grid.off_the_side(x + 1,y,selected_shape)) {
 				        	x++;
 				        	write_status_line(screen, "Move right.");
@@ -189,6 +189,20 @@ int main( int argc, char* args[] )
 					}
 					sprintf(status, "Gravity: %d", gravity);
 					break;
+				    case SDLK_SPACE:
+					old_gravity = gravity;
+					gravity = 60;
+					break;
+				    case SDLK_p:
+					    pause = !pause;
+					    if (pause)
+						    fps.pause();
+					    else
+						    fps.unpause();
+					    break;
+				    case SDLK_d:
+					    grid.debug_draw();
+					    break;
 				    case SDLK_q:
 					    quit = true;
 					    break;
@@ -201,6 +215,11 @@ int main( int argc, char* args[] )
 		if (!grid.at_bottom_or_on_mound(x,y+1,selected_shape)) {
 			y++;
 		} else {
+			if (old_gravity != -1) {
+				// This code resets the gravity after the user has done a fast drop.
+				gravity = old_gravity;
+				old_gravity = -1;
+			}
 			grid.add_to_mound(x,y,selected_shape);
 		        y = -1 * selected_shape->get_height();
 	        }
