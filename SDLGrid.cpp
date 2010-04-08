@@ -16,6 +16,13 @@ SDLGrid::SDLGrid(SDL_Surface *surface_in)
 }
 
 /*
+ * Draws the character based Grid
+ */
+void SDLGrid::debug_draw() {
+	grid->draw();
+}
+
+/*
  * Draws a Grid on the surface
  * NOTE: Based on:
  *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO
