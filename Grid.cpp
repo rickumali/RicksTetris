@@ -32,12 +32,14 @@ int Grid::width() {
 
 // draw()
 void Grid::draw() {
+  cout << "  G  R  I  D  " << endl;
   for (int row = 0; row < grid_height; row++) {
     for (int col = 0; col < grid_width; col++) {
       cout << grid_data[(row * grid_width)+col];
     }
     cout << endl;
   }
+  cout << "  G  R  I  D  " << endl;
 }
 
 // The grid contains these characters: ' ' or '.' for "blank" (the 
@@ -124,12 +126,12 @@ bool Grid::at_bottom_or_on_mound(int start_x, int start_y, Shape *shape) {
     for (int col = 0; col < shape->width(); col++) {
 	  int grid_x = start_x + col;
 	  int grid_y = start_y + row;
-	  if (grid_y >= grid_height) {
-	    return true;
-	  }
 	  if (shape->shapedata(row, col) == '#') {
         if (grid_data[(start_x + col) + ((start_y + row) * grid_width)] == 'm')
 		  return true;
+	    if (grid_y >= grid_height) {
+	      return true;
+	    }
 	  }
     }
   }
