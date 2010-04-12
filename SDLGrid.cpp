@@ -53,6 +53,26 @@ void SDLGrid::animate_rows_to_clear() {
 }
 
 /*
+ * animate_rows_to_clear(int ticks) 
+ *
+ * In our code, ticks is going to be an integer between 0 and 1000.
+ */
+void SDLGrid::animate_rows_to_clear(int ticks) {
+    // Uint32 red = SDL_MapRGB(surface->format, 0xFF, 0x00, 0x00);
+    Uint32 red = SDL_MapRGB(surface->format, ticks % 255, 0x00, 0x00);
+    for (int y = 0; y < grid->height(); y++) {
+		if (grid->clear_this_row(y)) {
+            for (int x = 0; x < grid->width(); x++) {
+				for (int j = 0; j < GRID_SIZE; j++) {
+					for (int k = 0; k < GRID_SIZE; k++) {
+          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, red);
+					}
+				}
+            }
+		}
+    }
+}
+/*
  * Draws a Grid on the surface
  * NOTE: Based on:
  *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO

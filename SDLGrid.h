@@ -16,6 +16,7 @@ class SDLGrid {
     bool off_the_side(int, int, SDLShape *);
 	void draw();
 	void animate_rows_to_clear();
+	void animate_rows_to_clear(int);
 	bool any_rows_to_clear();
 	void clear_rows();
 	void debug_draw();

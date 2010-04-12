@@ -212,6 +212,10 @@ int main( int argc, char* args[] )
 
             if( fps.get_ticks() > (1000/gravity) )
             {
+		if (clearing) {
+		  clearing = false;
+		}
+
 		if (!grid.at_bottom_or_on_mound(x,y+1,selected_shape)) {
 			y++;
 		} else {
@@ -222,10 +226,6 @@ int main( int argc, char* args[] )
 			}
 			grid.add_to_mound(x,y,selected_shape);
 		        y = -1 * selected_shape->get_height();
-			// NOTE: Consider making a boolean saying that shape was added. The KEY here
-			// is that y is to -1! So the grid.place(), down below, places a new shape 
-			// but at the very top (it resets the screen)!
-			
 			clearing = grid.any_rows_to_clear();
 	        }
 		fps.start(); // Restart the clock
@@ -244,11 +244,9 @@ int main( int argc, char* args[] )
 
 	    if (clearing) {
 	      grid.draw();
-	      grid.animate_rows_to_clear();
-	      grid.clear_rows();
-	      clearing = false;
+	      grid.animate_rows_to_clear(fps.get_ticks());
 	    } else {
-	      // grid.clear_rows();
+	      grid.clear_rows();
 	      grid.place(x, y, selected_shape);
 	      grid.draw();
 	    }
