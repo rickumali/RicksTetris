@@ -69,6 +69,15 @@ void Grid::clear_rows() {
   grid_data = new_grid_data; // Point old grid_data to new grid data
 }
 
+bool Grid::any_rows_to_clear() {
+  for (int row = grid_height - 1; row >= 0; row--) {
+    if (clear_this_row(row)) {
+	    return(true);
+    }
+  }
+  return (false);
+}
+
 bool Grid::clear_this_row(int row) {
     bool all_ms = true;
     for (int col = 0; col < grid_width; col++) {

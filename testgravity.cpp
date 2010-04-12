@@ -97,6 +97,7 @@ int main( int argc, char* args[] )
     
     bool quit = false;
     bool pause = false;
+    bool clearing = false;
     fps.start();
     while (quit == false) {
 	    while (SDL_PollEvent(&event)) {
@@ -224,8 +225,8 @@ int main( int argc, char* args[] )
 			// NOTE: Consider making a boolean saying that shape was added. The KEY here
 			// is that y is to -1! So the grid.place(), down below, places a new shape 
 			// but at the very top (it resets the screen)!
-			grid.animate_rows_to_clear();
-			grid.clear_rows();
+			
+			clearing = grid.any_rows_to_clear();
 	        }
 		fps.start(); // Restart the clock
 	    }
@@ -240,8 +241,18 @@ int main( int argc, char* args[] )
 
 	    write_status_line(screen, status);
 	    write_instruction_line(screen);
-	    grid.place(x, y, selected_shape);
-		grid.draw();
+
+	    if (clearing) {
+	      grid.draw();
+	      grid.animate_rows_to_clear();
+	      grid.clear_rows();
+	      clearing = false;
+	    } else {
+	      // grid.clear_rows();
+	      grid.place(x, y, selected_shape);
+	      grid.draw();
+	    }
+	    // grid.draw();
 
 	    if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);

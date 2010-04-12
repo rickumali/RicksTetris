@@ -30,11 +30,24 @@ void SDLGrid::clear_rows() {
 }
 
 /*
- * 
+ */
+bool SDLGrid::any_rows_to_clear() {
+	return(grid->any_rows_to_clear());
+}
+/*
+ * animate_rows_to_clear() 
  */
 void SDLGrid::animate_rows_to_clear() {
+    Uint32 red = SDL_MapRGB(surface->format, 0xFF, 0x00, 0x00);
     for (int y = 0; y < grid->height(); y++) {
 		if (grid->clear_this_row(y)) {
+            for (int x = 0; x < grid->width(); x++) {
+				for (int j = 0; j < GRID_SIZE; j++) {
+					for (int k = 0; k < GRID_SIZE; k++) {
+          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, red);
+					}
+				}
+            }
 		}
     }
 }
