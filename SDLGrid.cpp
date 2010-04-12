@@ -23,6 +23,23 @@ void SDLGrid::debug_draw() {
 }
 
 /*
+ * Draws the character based Grid
+ */
+void SDLGrid::clear_rows() {
+	grid->clear_rows();
+}
+
+/*
+ * 
+ */
+void SDLGrid::animate_rows_to_clear() {
+    for (int y = 0; y < grid->height(); y++) {
+		if (grid->clear_this_row(y)) {
+		}
+    }
+}
+
+/*
  * Draws a Grid on the surface
  * NOTE: Based on:
  *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO

@@ -33,7 +33,6 @@ const int FRAMES_PER_SECOND = 20;
 
 void write_instruction_line(SDL_Surface *);
 void write_status_line(SDL_Surface *, char *);
-void draw_grid(SDL_Surface *);
 
 int main( int argc, char* args[] )
 {
@@ -222,6 +221,11 @@ int main( int argc, char* args[] )
 			}
 			grid.add_to_mound(x,y,selected_shape);
 		        y = -1 * selected_shape->get_height();
+			// NOTE: Consider making a boolean saying that shape was added. The KEY here
+			// is that y is to -1! So the grid.place(), down below, places a new shape 
+			// but at the very top (it resets the screen)!
+			grid.animate_rows_to_clear();
+			grid.clear_rows();
 	        }
 		fps.start(); // Restart the clock
 	    }
@@ -234,7 +238,6 @@ int main( int argc, char* args[] )
     		}
 	    }
 
-	    // draw_grid(screen);
 	    write_status_line(screen, status);
 	    write_instruction_line(screen);
 	    grid.place(x, y, selected_shape);

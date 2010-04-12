@@ -14,6 +14,8 @@ class Grid {
     	Grid();
     	Grid(int, int);
     	void draw();
+    	void clear_rows();
+    	bool clear_this_row(int);
     	void place(int, int, Shape *);
     	void add_to_mound(int, int, Shape *);
     	bool out_of_bounds(int, int, Shape *);

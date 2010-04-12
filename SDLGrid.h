@@ -15,6 +15,8 @@ class SDLGrid {
     bool at_bottom_or_on_mound(int, int, SDLShape *);
     bool off_the_side(int, int, SDLShape *);
 	void draw();
+	void animate_rows_to_clear();
+	void clear_rows();
 	void debug_draw();
 	void set_grid(Grid *);
 	void set_surface(SDL_Surface *);

@@ -42,6 +42,43 @@ void Grid::draw() {
   cout << "GRID  GRID" << endl;
 }
 
+// clear_rows()
+//
+// Algorithm is to fill from the BOTTOM to the TOP
+void Grid::clear_rows() {
+  string new_grid_data = string(grid_height * grid_width, '.');
+  int new_row = grid_height - 1;
+
+  for (int row = grid_height - 1; row >= 0; row--) {
+    if (!clear_this_row(row)) {
+      for (int col = 0; col < grid_width; col++) {
+        new_grid_data[(new_row * grid_width) + col] = grid_data[(row * grid_width) + col];
+      }
+      new_row--;
+    }
+  }
+
+  // Fill rest of the rows
+  for ( ; new_row >=0; new_row--) {
+    for (int col = 0; col < grid_width; col++) {
+      new_grid_data[(new_row * grid_width) + col] = '.';
+    }
+  }
+  // delete grid_data; // Delete the old grid_data
+  // TODO: Above produces an error...is that right?
+  grid_data = new_grid_data; // Point old grid_data to new grid data
+}
+
+bool Grid::clear_this_row(int row) {
+    bool all_ms = true;
+    for (int col = 0; col < grid_width; col++) {
+      if (grid_data[(row * grid_width) + col] != 'm') {
+        all_ms = false; // At least ONE non-mound block
+      }
+    }
+    return (all_ms);
+}
+
 // The grid contains these characters: ' ' or '.' for "blank" (the 
 // ' ' is introduced by a shape's blank space in its square), '#' for 
 // a "shape" block, and 'm' for a "mound" block. Clearing the grid of 
