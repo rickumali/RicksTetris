@@ -137,6 +137,9 @@ bool Grid::out_of_bounds(int start_x, int start_y, Shape *shape) {
 			(grid_y >= grid_height)) {
 			return true;
 		}
+		// Account for hitting the 'mound'
+        if (grid_data[grid_x + (grid_y * grid_width)] == 'm')
+		  return true;
 	  }
     }
   }
