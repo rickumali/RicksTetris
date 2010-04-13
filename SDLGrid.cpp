@@ -58,8 +58,13 @@ void SDLGrid::animate_rows_to_clear() {
  * In our code, ticks is going to be an integer between 0 and 1000.
  */
 void SDLGrid::animate_rows_to_clear(int ticks) {
-    // Uint32 red = SDL_MapRGB(surface->format, 0xFF, 0x00, 0x00);
-    Uint32 red = SDL_MapRGB(surface->format, ticks % 255, 0x00, 0x00);
+	int rvalue = 0;
+	if (ticks > 255)
+		rvalue = 255;
+	else
+		rvalue = ticks;
+    Uint32 red = SDL_MapRGB(surface->format, 255 - rvalue, 0x00, 0x00);
+    Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
     for (int y = 0; y < grid->height(); y++) {
 		if (grid->clear_this_row(y)) {
             for (int x = 0; x < grid->width(); x++) {
@@ -68,6 +73,27 @@ void SDLGrid::animate_rows_to_clear(int ticks) {
           				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, red);
 					}
 				}
+			// DUPLICATE (see SDLGrid::draw())
+	    	for (int j = 0; j < GRID_SIZE; j++) {
+				// Draw the top and bottom of the "grid" square
+                putpixel(surface, (x*GRID_SIZE)+j, (y*GRID_SIZE), yellow);
+                putpixel(surface, (x*GRID_SIZE)+j, (y*GRID_SIZE)+GRID_SIZE, yellow);
+				// If we're at the last "row", then draw one more row below
+				if ((y+1) == grid->height()) {
+					putpixel(surface, (x*GRID_SIZE)+j, (grid->height()*GRID_SIZE), yellow);
+				}
+	    	}
+	    	for (int j = 0; j < GRID_SIZE; j++) {
+				// Draw the left and right of the "grid" square
+                putpixel(surface, (x*GRID_SIZE), (y*GRID_SIZE)+j, yellow);
+                putpixel(surface, (x*GRID_SIZE)+GRID_SIZE, (y*GRID_SIZE)+j, yellow);
+				// If we're at the last "row", then draw one more row below
+				// NOTE: This seeminly puts a last DOT in the lower right hand corner
+				if ((y+1) == grid->height()) {
+					putpixel(surface, (x*GRID_SIZE)+GRID_SIZE, (grid->height()*GRID_SIZE), yellow);
+				}
+	    	}
+			// DUPLICATE (see SDLGrid::draw())
             }
 		}
     }

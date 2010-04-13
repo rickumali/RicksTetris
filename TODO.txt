@@ -1,0 +1,9 @@
+Refactor init_shape(). Move it back into Shape.h/Shape.cpp. (4/4/2010)
+
+Refactor draw(). Move it back into Shape.h/Shape.cpp. (4/4/2010)
+
+Gate the other keys when "fast fall" has been activated. (4/7/2010)
+
+Write a switch that reads in a starting grid shape. Helpful for testing things. (4/12/2010)
+
+Refactor the drawing of the grid lines (duplicate code). (4/12/2010)
