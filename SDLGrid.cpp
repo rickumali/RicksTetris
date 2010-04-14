@@ -34,6 +34,12 @@ void SDLGrid::clear_rows() {
 bool SDLGrid::any_rows_to_clear() {
 	return(grid->any_rows_to_clear());
 }
+
+/*
+ */
+int SDLGrid::get_num_rows_to_clear() {
+	return(grid->get_num_rows_to_clear());
+}
 /*
  * animate_rows_to_clear() 
  */

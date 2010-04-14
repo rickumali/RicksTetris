@@ -97,7 +97,7 @@ int main( int argc, char* args[] )
     
     bool quit = false;
     bool pause = false;
-    bool clearing = false;
+    int num_rows_to_clear = 0;
     fps.start();
     while (quit == false) {
 	    while (SDL_PollEvent(&event)) {
@@ -212,8 +212,8 @@ int main( int argc, char* args[] )
 
             if( fps.get_ticks() > (1000/gravity) )
             {
-		if (clearing) {
-		  clearing = false;
+		if (num_rows_to_clear > 0) {
+		  num_rows_to_clear = 0;
 		}
 
 		if (!grid.at_bottom_or_on_mound(x,y+1,selected_shape)) {
@@ -226,7 +226,7 @@ int main( int argc, char* args[] )
 			}
 			grid.add_to_mound(x,y,selected_shape);
 		        y = -1 * selected_shape->get_height();
-			clearing = grid.any_rows_to_clear();
+			num_rows_to_clear = grid.get_num_rows_to_clear();
 	        }
 		fps.start(); // Restart the clock
 	    }
@@ -242,7 +242,7 @@ int main( int argc, char* args[] )
 	    write_status_line(screen, status);
 	    write_instruction_line(screen);
 
-	    if (clearing) {
+	    if (num_rows_to_clear > 0) {
 	      grid.draw();
 	      grid.animate_rows_to_clear(fps.get_ticks());
 	    } else {

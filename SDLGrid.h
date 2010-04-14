@@ -18,6 +18,7 @@ class SDLGrid {
 	void animate_rows_to_clear();
 	void animate_rows_to_clear(int);
 	bool any_rows_to_clear();
+	int get_num_rows_to_clear();
 	void clear_rows();
 	void debug_draw();
 	void set_grid(Grid *);

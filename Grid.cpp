@@ -78,6 +78,16 @@ bool Grid::any_rows_to_clear() {
   return (false);
 }
 
+int Grid::get_num_rows_to_clear() {
+  int count = 0;
+  for (int row = grid_height - 1; row >= 0; row--) {
+    if (clear_this_row(row)) {
+	    count++;
+    }
+  }
+  return (count);
+}
+
 bool Grid::clear_this_row(int row) {
     bool all_ms = true;
     for (int col = 0; col < grid_width; col++) {
