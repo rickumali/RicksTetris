@@ -3,6 +3,7 @@
 #include <cstdio>
 #include "SDL/SDL.h"
 #include "SDL_ttf.h"
+
 #include "SDLGrid.h"
 #include "SDLSquare.h"
 #include "SDLPyramid.h"
@@ -14,6 +15,7 @@
 #include "putpixel.h"
 #include "Constants.h"
 #include "Timer.h"
+#include "OriginalNintendoScoring.h"
 
 using std::cout;
 using std::endl;
@@ -81,7 +83,7 @@ int main( int argc, char* args[] )
     SDLShape* leftell = new SDLLeftEll(screen);
     SDLShape* rightell = new SDLRightEll(screen);
     SDLShape *selected_shape = square;
-    
+
     // Starting location for ALL shapes
     int x = 5;
     int y = -1 * selected_shape->get_height();
@@ -91,6 +93,12 @@ int main( int argc, char* args[] )
 
     char status[50]; // Used for status line
     sprintf(status, "testgravity");
+
+    // Scoring System
+    ScoreSystem *scoring = new OriginalNintendoScoring();
+    int score = 0;
+    int level = 0; // Need 10 rows cleared to increase level (and gravity)
+    int lines_cleared_in_level = 0;
 
     // Timer
     Timer fps;
@@ -213,7 +221,15 @@ int main( int argc, char* args[] )
             if( fps.get_ticks() > (1000/gravity) )
             {
 		if (num_rows_to_clear > 0) {
+		  // TODO: Replace gravity with levels (and have separate counter for that)
+                  score = scoring->add_lines_to_score(level, num_rows_to_clear); 
+		  cout << "SCORE: " << score << " LEVEL: " << level << endl;
+		  lines_cleared_in_level += num_rows_to_clear;
 		  num_rows_to_clear = 0;
+		  if (lines_cleared_in_level > 10) {
+		    level++; gravity++;
+		    lines_cleared_in_level = 0;
+		  }
 		}
 
 		if (!grid.at_bottom_or_on_mound(x,y+1,selected_shape)) {

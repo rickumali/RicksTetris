@@ -12,6 +12,10 @@ SDLSHAPES_HEADERS = SDLSquare.h SDLPyramid.h SDLLeftSlant.h SDLRightSlant.h SDLL
 SDLSHAPES_SOURCE = SDLShape.cpp SDLSquare.cpp SDLPyramid.cpp SDLLeftSlant.cpp SDLRightSlant.cpp SDLLongRow.cpp SDLLeftEll.cpp SDLRightEll.cpp SDLGrid.cpp
 SDLSHAPES = SDLShape.o SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o SDLGrid.o
 
+SCORING_HEADERS = ScoreSystem.h OriginalNintendoScoring.h
+SCORING_SOURCE = ScoreSystem.cpp OriginalNintendoScoring.cpp
+SCORING = ScoreSystem.o OriginalNintendoScoring.o
+
 #------------------------------
 # Character-based Shape Testers
 #------------------------------
@@ -58,7 +62,7 @@ testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o
 
 # This tests the shapes "falling" based on gravity. Use 'f' for Faster
 # and 's' for slower
-testgravity: testgravity.o $(SHAPES) $(SDLSHAPES) putpixel.o Timer.o
+testgravity: testgravity.o $(SHAPES) $(SDLSHAPES) $(SCORING) putpixel.o Timer.o
 
 # This is my attempt to test collision with the edges. I am beginning to 
 # abandon the adjust_x and adjust_y methods found in putpixel().

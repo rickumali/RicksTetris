@@ -7,3 +7,7 @@ Gate the other keys when "fast fall" has been activated. (4/7/2010)
 Write a switch that reads in a starting grid shape. Helpful for testing things. (4/12/2010)
 
 Refactor the drawing of the grid lines (duplicate code). (4/12/2010)
+
+Put constants for things like gravity. (4/14/2010)
+
+Consider working with anttweakbar for menuing and stuff. (4/14/2010)
