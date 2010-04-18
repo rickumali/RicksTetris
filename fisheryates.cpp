@@ -1,26 +1,24 @@
-#include <iostream>//for cout, cin and swap()
-#include <string>//for string and length()
-#include <cstdlib>//for srand() and rand()
-#include <ctime>//for time()
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
-void fisherYatesShuffle(string &str)//return by reference
+void fisherYatesShuffle(int str[])
 {
-    for(int n=str.length()-1; n>1; n--)//str.length is the number of characters in your string - 1 because length does not check for the null terminator
+    for(int n=6; n>0; n--)
     {
-        int y=rand() % (n+1);//Picks a random number between 0 and n
-        swap(str[y], str[n]);//swaps the randomly picks character with n
+        int y=rand() % (n+1); //Picks a random number between 0 and n
+        swap(str[y], str[n]); //swaps the randomly picks character with n
     }
 }
 
 
-int main()//implementation
+int main()
 {
     srand(time(0));//seed rand() to the amount of seconds since midnight
-    // string str = ("Fixed.");
-    string str = ("1234567");
+    int str[] = {1,2,3,4,5,6,7};
     fisherYatesShuffle(str);
-    for(int n=0;n<str.length();n++)//print the string
+    for(int n=0;n<7;n++)//print the string
     {
         cout << str[n];
     }
