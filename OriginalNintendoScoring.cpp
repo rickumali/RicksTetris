@@ -10,8 +10,6 @@ OriginalNintendoScoring::OriginalNintendoScoring() : ScoreSystem()
 }
 
 int OriginalNintendoScoring::add_lines_to_score(int level, int lines) {
-  int current_score = get_current_score();
-  current_score = (pts_for_lines[lines] * (level + 1));
-  add_to_current_score(current_score);
-  return(current_score);
+  add_to_current_score(pts_for_lines[lines] * (level + 1));
+  return(get_current_score());
 }
