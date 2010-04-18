@@ -17,6 +17,8 @@
 #include "Timer.h"
 #include "OriginalNintendoScoring.h"
 
+#include "ShapeBag.h"
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -32,9 +34,6 @@ TTF_Font *font;
 
 //The frames per second
 const int FRAMES_PER_SECOND = 20;
-
-void write_instruction_line(SDL_Surface *);
-void write_status_line(SDL_Surface *, char *);
 
 int main( int argc, char* args[] )
 {
@@ -82,10 +81,22 @@ int main( int argc, char* args[] )
     SDLShape* longrow = new SDLLongRow(screen);
     SDLShape* leftell = new SDLLeftEll(screen);
     SDLShape* rightell = new SDLRightEll(screen);
-    SDLShape *selected_shape = square;
+
+    // Add shapes to the bag
+    ShapeBag sb;
+    sb.addshape(square);
+    sb.addshape(pyramid);
+    sb.addshape(leftslant);
+    sb.addshape(rightslant);
+    sb.addshape(longrow);
+    sb.addshape(leftell);
+    sb.addshape(rightell);
+
+    SDLShape *selected_shape = sb.nextshape();
 
     // Starting location for ALL shapes
-    int x = 5;
+    // int x = rand() % 11; // Return an x value between 0 and 10
+    int x = 5; // TODO: Modify this to account for shape!
     int y = -1 * selected_shape->get_height();
 
     int gravity = 1; // rows per second; can be fractional
@@ -160,7 +171,6 @@ int main( int argc, char* args[] )
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
 				        if (!grid.out_of_bounds(x,y,selected_shape)) {
-				        	write_status_line(screen, "Rotate right.");
 						} else {
 							selected_shape->rotate_left();
 						}
@@ -168,7 +178,6 @@ int main( int argc, char* args[] )
 				    case SDLK_DOWN:
 					    selected_shape->rotate_left();
 				        if (!grid.out_of_bounds(x,y,selected_shape)) {
-				        	write_status_line(screen, "Rotate left.");
 						} else {
 							selected_shape->rotate_right();
 						}
@@ -176,13 +185,11 @@ int main( int argc, char* args[] )
 				    case SDLK_LEFT:
 				        if (!grid.off_the_side(x - 1,y,selected_shape)) {
 				        	x--;
-				        	write_status_line(screen, "Move left.");
 						}
 					    break;
 				    case SDLK_RIGHT:
 				        if (!grid.off_the_side(x + 1,y,selected_shape)) {
 				        	x++;
-				        	write_status_line(screen, "Move right.");
 						}
 					    break;
 				    case SDLK_s:
@@ -221,7 +228,6 @@ int main( int argc, char* args[] )
             if( fps.get_ticks() > (1000/gravity) )
             {
 		if (num_rows_to_clear > 0) {
-		  // TODO: Replace gravity with levels (and have separate counter for that)
                   score = scoring->add_lines_to_score(level, num_rows_to_clear); 
 		  cout << "SCORE: " << score << " LEVEL: " << level << endl;
 		  lines_cleared_in_level += num_rows_to_clear;
@@ -241,6 +247,9 @@ int main( int argc, char* args[] )
 				old_gravity = -1;
 			}
 			grid.add_to_mound(x,y,selected_shape);
+			// TODO: Get new shape now
+                        selected_shape = sb.nextshape();
+                        x = 5; // TODO: Modify this to account for shape!
 		        y = -1 * selected_shape->get_height();
 			num_rows_to_clear = grid.get_num_rows_to_clear();
 	        }
@@ -254,9 +263,6 @@ int main( int argc, char* args[] )
     		    return 1;
     		}
 	    }
-
-	    write_status_line(screen, status);
-	    write_instruction_line(screen);
 
 	    if (num_rows_to_clear > 0) {
 	      grid.draw();
@@ -287,56 +293,3 @@ int main( int argc, char* args[] )
     return 0;    
 }
 
-/*
- * Writes a line of status to the status line. This first 
- * blanks out the status line, THEN it draws the message into the 
- * blaked out status line.
- */
-void write_instruction_line(SDL_Surface *screen) {
-    Uint32 blackColor = SDL_MapRGB(screen->format, 0, 0, 0);
-    SDL_Color textColor = {0, 255, 0};
-    SDL_Surface *message = TTF_RenderText_Solid( font, "Key 0, Shape 0; 1, T; 2, LS; 3, RS; 4, I; 5, LG; 6; RG", textColor);
-
-    // This is the entire blank area of the status line
-    SDL_Rect status_line_offset;
-    status_line_offset.x = 0 * GRID_SIZE;
-    status_line_offset.y = 22 * GRID_SIZE; // This is the next to last "row"
-    status_line_offset.h = 1 * GRID_SIZE - 1;
-    status_line_offset.w = 10 * GRID_SIZE - 1;
-
-    // This is the area for the message
-    SDL_Rect text_offset;
-    text_offset.x = 2;
-    text_offset.y = 22 * GRID_SIZE; // This is the next to last "row"
-
-    SDL_FillRect (screen, &status_line_offset, blackColor);
-    SDL_BlitSurface (message, NULL, screen, &text_offset);
-    SDL_FreeSurface(message);
-}
-
-/*
- * Writes a line of status to the status line. This first 
- * blanks out the status line, THEN it draws the message into the 
- * blaked out status line.
- */
-void write_status_line(SDL_Surface *screen, char *s) {
-    Uint32 blackColor = SDL_MapRGB(screen->format, 0, 0, 0);
-    SDL_Color textColor = {0, 255, 0};
-    SDL_Surface *message = TTF_RenderText_Solid( font, s, textColor);
-
-    // This is the entire blank area of the status line
-    SDL_Rect status_line_offset;
-    status_line_offset.x = 0 * GRID_SIZE;
-    status_line_offset.y = 23 * GRID_SIZE;
-    status_line_offset.h = 1 * GRID_SIZE - 1;
-    status_line_offset.w = 10 * GRID_SIZE - 1;
-
-    // This is the area for the message
-    SDL_Rect text_offset;
-    text_offset.x = 2;
-    text_offset.y = 23 * GRID_SIZE;
-
-    SDL_FillRect (screen, &status_line_offset, blackColor);
-    SDL_BlitSurface (message, NULL, screen, &text_offset);
-    SDL_FreeSurface(message);
-}
