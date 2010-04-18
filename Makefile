@@ -62,7 +62,7 @@ testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o
 
 # This tests the shapes "falling" based on gravity. Use 'f' for Faster
 # and 's' for slower
-testgravity: testgravity.o $(SHAPES) $(SDLSHAPES) $(SCORING) putpixel.o Timer.o
+testgravity: testgravity.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(SCORING) putpixel.o Timer.o
 
 # This is my attempt to test collision with the edges. I am beginning to 
 # abandon the adjust_x and adjust_y methods found in putpixel().
