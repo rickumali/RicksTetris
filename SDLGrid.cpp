@@ -1,7 +1,9 @@
 #include "SDLGrid.h"
 #include "Constants.h"
 #include "putpixel.h"
+#include "SDL_ttf.h"
 
+extern TTF_Font *font; // This is a global variable!
 /*
  * This is the grid, in SDL.
  *
@@ -104,19 +106,30 @@ void SDLGrid::animate_rows_to_clear(int ticks) {
 		}
     }
 }
+
 /*
  * Draws a Grid on the surface
  * NOTE: Based on:
  *   file:///c:/SDL-1.2.13/docs/html/guidevideo.html#GUIDEVIDEOINTRO
  */
-void SDLGrid::draw() {
+void SDLGrid::draw(bool paused) {
     /* Map the color yellow to this display (R=0xff, G=0xFF, B=0x00)
      * Note: If the display is palettized, you must set the palette first.
      * NOTE: Softened the color.
      */
-    Uint32 black = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
-    Uint32 yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
-    Uint32 grey = SDL_MapRGB(surface->format, 0x99, 0x99, 0x99);
+    Uint32 black;
+    Uint32 yellow;
+    Uint32 grey;
+
+	if (paused) {
+      black = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
+      yellow = SDL_MapRGB(surface->format, 0x99, 0x99, 0x99);
+      grey = SDL_MapRGB(surface->format, 0x99, 0x99, 0x99);
+	} else {
+      black = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
+      yellow = SDL_MapRGB(surface->format, 0xcc, 0xcc, 0x00);
+      grey = SDL_MapRGB(surface->format, 0x99, 0x99, 0x99);
+	}
 
     /*
      * This is _based_ on testgravity.cpp
@@ -130,7 +143,7 @@ void SDLGrid::draw() {
 			if (grid->griddata(y,x) == '#') {
 				for (int j = 0; j < GRID_SIZE; j++) {
 					for (int k = 0; k < GRID_SIZE; k++) {
-          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, shape_color);
+          				putpixel(surface, x*GRID_SIZE+j, y*GRID_SIZE+k, paused ? grey : shape_color);
 					}
 				}
 			} else if (grid->griddata(y,x) == 'm') {
@@ -167,6 +180,16 @@ void SDLGrid::draw() {
 	    	}
         }
     }
+	if (paused) {
+      SDL_Color textColor = {0, 255, 0};
+      SDL_Surface *message = TTF_RenderText_Solid( font, "Paused", textColor);
+      // This is the area for the message
+      SDL_Rect text_offset;
+      text_offset.x = 4 * GRID_SIZE + 6;
+      text_offset.y = 9 * GRID_SIZE; // I hand centered it myself
+      SDL_BlitSurface (message, NULL, surface, &text_offset);
+      SDL_FreeSurface(message);
+	}
 }
 
 void SDLGrid::place(int x, int y, SDLShape *shape) {
