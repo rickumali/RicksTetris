@@ -5,6 +5,8 @@ const int SCREEN_BPP = 32;
 
 // Grid attributes
 const int GRID_SIZE = 20;
+const int GRID_X_OFFSET = 20;
+const int GRID_Y_OFFSET = 20;
 
 // Pieces
 const int SQUARE = 1;
