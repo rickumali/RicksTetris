@@ -126,48 +126,6 @@ int main( int argc, char* args[] )
 
 		    if (event.type == SDL_KEYDOWN) {
 			    switch(event.key.keysym.sym) {
-				    case SDLK_0:
-					    x = 5; 
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = square;
-					    sprintf(status, "Selected square!");
-					    break;
-				    case SDLK_1:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = pyramid;
-					    sprintf(status, "Selected Pyramid!");
-					    break;
-				    case SDLK_2:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = leftslant;
-					    sprintf(status, "Selected Left Slant!");
-					    break;
-				    case SDLK_3:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = rightslant;
-					    sprintf(status, "Selected Right Slant!");
-					    break;
-				    case SDLK_4:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = longrow;
-					    sprintf(status, "Selected Long Row!");
-					    break;
-				    case SDLK_5:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = leftell;
-					    sprintf(status, "Selected Left Ell!");
-					    break;
-				    case SDLK_6:
-					    x = 5;
-					    y = -1 * selected_shape->get_height();
-					    selected_shape = rightell;
-					    sprintf(status, "Selected Right Ell!");
-					    break;
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
 				        if (!grid.out_of_bounds(x,y,selected_shape)) {
@@ -265,14 +223,13 @@ int main( int argc, char* args[] )
 	    }
 
 	    if (num_rows_to_clear > 0) {
-	      grid.draw();
+	      grid.draw(pause);
 	      grid.animate_rows_to_clear(fps.get_ticks());
 	    } else {
 	      grid.clear_rows();
 	      grid.place(x, y, selected_shape);
-	      grid.draw();
+	      grid.draw(pause);
 	    }
-	    // grid.draw();
 
 	    if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
