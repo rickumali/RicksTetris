@@ -10,7 +10,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 {
     int bpp = surface->format->BytesPerPixel;
     /* Here p is the address to the pixel we want to set */
-    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+    Uint8 *p = (Uint8 *)surface->pixels + (y+GRID_Y_OFFSET) * surface->pitch + (x+GRID_X_OFFSET) * bpp;
 
     switch(bpp) {
     case 1:
