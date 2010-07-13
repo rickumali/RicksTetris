@@ -11,3 +11,13 @@ Refactor the drawing of the grid lines (duplicate code). (4/12/2010)
 Put constants for things like gravity. (4/14/2010)
 
 Consider working with anttweakbar for menuing and stuff. (4/14/2010)
+
+Display level, score, lines drawn, and maybe (maybe) a "statistics" area for showing what shapes fell. (7/12/2010)
+
+Allow ability to toggle to Full Screen mode. (7/12/2010)
+
+When 'paused', display that we're paused. (7/12/2010) DONE!
+
+For every global, use the "g" prefix convention. (7/12/2010)
+
+Check for auto-repeat issues (for space for fast-gravity). (7/12/2010)
