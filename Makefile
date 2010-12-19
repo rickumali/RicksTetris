@@ -91,6 +91,9 @@ fisheryates: fisheryates.o
 # Tests the ShapeBag
 testshapebag: testshapebag.o ShapeBag.o Shape.o Square.o Pyramid.o LeftSlant.o RightSlant.o LongRow.o LeftEll.o RightEll.o SDLShape.o SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o SDLLongRow.o SDLLeftEll.o SDLRightEll.o
 
+# Tests Bitmap BLT'ing
+testsamplebitmap: testsamplebitmap.o
+
 clean:
 	rm -f *.o *.exe *~ stdout.txt stderr.txt
 
