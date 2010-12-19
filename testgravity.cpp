@@ -29,8 +29,10 @@ SDL_Event event;
 // The surfaces that will be used
 SDL_Surface *screen = NULL;
 
-// The surface for the "background" image
-SDL_Surface *image;
+// The surfaces for the "background" image
+SDL_Surface *tetris_bmp;
+SDL_Surface *start_bmp;
+SDL_Surface *help_bmp;
 
 // Font
 TTF_Font *font;
@@ -74,13 +76,22 @@ int main( int argc, char* args[] )
     }
     
     // XXX: Load the "background" bitmap
-    image = SDL_LoadBMP("tetris.bmp");
-    if(image == NULL) {
+    tetris_bmp = SDL_LoadBMP("tetris.bmp");
+    if(tetris_bmp == NULL) {
+       return(1);
+    }
+    start_bmp = SDL_LoadBMP("start.bmp");
+    if(start_bmp == NULL) {
+       return(1);
+    }
+    help_bmp = SDL_LoadBMP("help.bmp");
+    if(help_bmp == NULL) {
        return(1);
     }
 
-    // BLIT the "background" bitmap
-    SDL_BlitSurface(image , NULL, screen , NULL);
+    // BLIT the start "background" bitmap
+    SDL_BlitSurface(start_bmp , NULL, screen , NULL);
+    SDL_UpdateRect(screen , 0 , 0 , 0 , 0 );
 
     //Set the window caption
     SDL_WM_SetCaption( "testgravity", NULL );
@@ -127,8 +138,30 @@ int main( int argc, char* args[] )
     
     bool quit = false;
     bool pause = false;
+    bool start = false;
+    bool help = false;
     int num_rows_to_clear = 0;
     fps.start();
+
+    while (start == false) {
+	 while (SDL_PollEvent(&event)) {
+  	   // This block of code implements "start game"
+  	   if (event.type != SDL_KEYDOWN) {
+  	   continue;
+  	   }
+  
+  	   // This block of code implements "start game"
+  	   if (!start && event.key.keysym.sym != SDLK_s) {
+  	     continue;
+  	   } else {
+  	    start = true;
+  	   }
+	}
+    }
+
+    // BLIT the normal "background" bitmap
+    SDL_BlitSurface(tetris_bmp , NULL, screen , NULL);
+
     while (quit == false) {
 	    while (SDL_PollEvent(&event)) {
 		    if (event.type == SDL_QUIT) {
@@ -136,8 +169,13 @@ int main( int argc, char* args[] )
 		    }
 
 		    if (event.type == SDL_KEYDOWN) {
+			        // This block of code implements "pause" (p unpauses)
 				if (pause && event.key.keysym.sym != SDLK_p)
 				  continue;
+			        // This block of code implements "help" (h unlocks help)
+				if (help && event.key.keysym.sym != SDLK_h)
+				  continue;
+
 			    switch(event.key.keysym.sym) {
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
@@ -163,16 +201,6 @@ int main( int argc, char* args[] )
 				        	x++;
 						}
 					    break;
-				    case SDLK_s:
-					if (--gravity < 1) {
-						gravity = 1;
-					}
-					break;
-				    case SDLK_f:
-					if (++gravity > 20) {
-						gravity = 20;
-					}
-					break;
 				    case SDLK_SPACE:
 					old_gravity = gravity;
 					gravity = 60;
@@ -183,6 +211,21 @@ int main( int argc, char* args[] )
 						    fps.pause();
 					    else
 						    fps.unpause();
+					    break;
+				    case SDLK_h:
+					    help = !help;
+					    if (help) {
+						    fps.pause();
+    						// BLIT the normal "background" bitmap
+						SDL_Rect dest;
+  							dest.x = 250;
+  							dest.y = 250;
+    						SDL_BlitSurface(help_bmp , NULL, screen , &dest);
+					    } else {
+    						// BLIT the normal "background" bitmap
+    						SDL_BlitSurface(tetris_bmp , NULL, screen , NULL);
+						    fps.unpause();
+					    }
 					    break;
 				    case SDLK_d:
 					    grid.debug_draw();
@@ -205,6 +248,9 @@ int main( int argc, char* args[] )
 		    lines_cleared_in_level = 0;
 		    if (level > 999999) {
                       level = 1000000; // Cap level at 1M
+		    }
+		    if (gravity > 20) {
+                      gravity = 20; // Cap gravity at 20
 		    }
 		  }
 		}
@@ -230,7 +276,6 @@ int main( int argc, char* args[] )
 	    write_score(screen, scoring->get_current_score());
 	    write_level(screen, level+1);
 
-
 	    /* Redraw "everything" */
 	    if ( SDL_MUSTLOCK(screen) ) {
     		if ( SDL_LockSurface(screen) < 0 ) {
@@ -240,12 +285,12 @@ int main( int argc, char* args[] )
 	    }
 
 	    if (num_rows_to_clear > 0) {
-	      grid.draw(pause);
+	      grid.draw(pause||help);
 	      grid.animate_rows_to_clear(fps.get_ticks());
 	    } else {
 	      grid.clear_rows();
 	      grid.place(x, y, selected_shape);
-	      grid.draw(pause);
+	      grid.draw(pause||help);
 	    }
 
 	    if (SDL_MUSTLOCK(screen)) {
@@ -263,7 +308,7 @@ int main( int argc, char* args[] )
 
     // Free images
     SDL_FreeSurface(screen);
-    SDL_FreeSurface(image);
+    SDL_FreeSurface(tetris_bmp);
 
     //Quit SDL
     SDL_Quit();
