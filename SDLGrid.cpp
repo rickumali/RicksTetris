@@ -227,3 +227,8 @@ void SDLGrid::set_surface(SDL_Surface *surface_in) {
 void SDLGrid::set_shape_color(Uint32 color_in) {
   shape_color = color_in;
 }
+
+// reset()
+void SDLGrid::reset() {
+  grid->reset();
+}

@@ -197,3 +197,9 @@ bool Grid::at_bottom_or_on_mound(int start_x, int start_y, Shape *shape) {
   }
   return false;
 }
+
+// reset()
+void Grid::reset() {
+  grid_data = string(grid_height * grid_width, '.');
+}
+

@@ -42,6 +42,7 @@ const int FRAMES_PER_SECOND = 20;
 
 void write_score(SDL_Surface *, int);
 void write_level(SDL_Surface *, int);
+void write_gameover(SDL_Surface *);
 
 int main( int argc, char* args[] )
 {
@@ -136,7 +137,8 @@ int main( int argc, char* args[] )
     // Timer
     Timer fps;
     
-    bool quit = false;
+    bool user_quit = false; // User initiated the quit
+    bool game_quit = false; // Game initiated the quit (shapes all fall to the TOP)
     bool pause = false;
     bool start = false;
     bool help = false;
@@ -159,13 +161,15 @@ int main( int argc, char* args[] )
 	}
     }
 
+start_game:
+
     // BLIT the normal "background" bitmap
     SDL_BlitSurface(tetris_bmp , NULL, screen , NULL);
 
-    while (quit == false) {
+    while (!user_quit && !game_quit) {
 	    while (SDL_PollEvent(&event)) {
 		    if (event.type == SDL_QUIT) {
-			    quit = true;
+			    user_quit = true;
 		    }
 
 		    if (event.type == SDL_KEYDOWN) {
@@ -216,7 +220,8 @@ int main( int argc, char* args[] )
 					    help = !help;
 					    if (help) {
 						    fps.pause();
-    						// BLIT the normal "background" bitmap
+    						// BLIT the "help" bitmap (it's slightly 
+						// offset, to cover the lower-thirds game shapes)
 						SDL_Rect dest;
   							dest.x = 250;
   							dest.y = 250;
@@ -231,7 +236,7 @@ int main( int argc, char* args[] )
 					    grid.debug_draw();
 					    break;
 				    case SDLK_q:
-					    quit = true;
+					    user_quit = true;
 					    break;
 			    }
 		    }
@@ -264,11 +269,14 @@ int main( int argc, char* args[] )
 				old_gravity = -1;
 			}
 			grid.add_to_mound(x,y,selected_shape);
-			// TODO: Get new shape now
-                        selected_shape = sb.nextshape();
-                        x = 5; // TODO: Modify this to account for shape!
-		        y = -1 * selected_shape->get_height();
-			num_rows_to_clear = grid.get_num_rows_to_clear();
+			if (y <= 0) {
+			  game_quit = true;
+			} else {
+                          selected_shape = sb.nextshape();
+                          x = 5; // TODO: Modify this to account for shape!
+		          y = -1 * selected_shape->get_height();
+			  num_rows_to_clear = grid.get_num_rows_to_clear();
+			}
 	        }
 		fps.start(); // Restart the clock
 	    }
@@ -301,6 +309,41 @@ int main( int argc, char* args[] )
 		    cout << "Problem with the SDL_Flip()" << std::endl;
 		    return 1;
 	    }
+    }
+
+    // Check if the game quit. If the game quit, then allow the user
+    // to start a new game. If the user quit, then just bail.
+    if (game_quit) {
+      user_quit = false; 
+      write_gameover(screen);
+      SDL_UpdateRect(screen , 0 , 0 , 0 , 0 );
+      while (user_quit == false) {
+	   while (SDL_PollEvent(&event)) {
+  	     if (event.type != SDL_KEYDOWN) {
+  	       continue;
+  	     }
+
+	     if (event.key.keysym.sym == SDLK_q) {
+	       user_quit = true;
+	     }
+  
+  	     if (event.key.keysym.sym == SDLK_n) {
+	       // Reset the game state
+               game_quit = false; user_quit = false; start = true;
+               level = 0;
+               lines_cleared_in_level = 0;
+               pause = false; help = false;
+               num_rows_to_clear = 0;
+               fps.start();
+	       grid.reset();
+               selected_shape = sb.nextshape(); // TODO: Reset the 7 shapes in the bag properly
+               x = 5; // TODO: Modify this to account for shape!
+	       y = -1 * selected_shape->get_height();
+               scoring->set_current_score(0);
+	       goto start_game; // XXX: This works, but REFACTOR!
+  	     }
+	  }
+      }
     }
 
     TTF_CloseFont(font);
@@ -385,4 +428,33 @@ void write_level(SDL_Surface *screen, int level) {
 }
 
 
+/*
+ * Writes the Game Over message.
+ */
+void write_gameover(SDL_Surface *screen) {
+    const int X_OFFSET = 13;
+    const int Y_OFFSET = 7;
+    Uint32 blackColor = SDL_MapRGB(screen->format, 0, 0, 0);
+    SDL_Color textColor = {250, 0, 0};
+    char s[40];
+
+    sprintf(s, "Game Over! (q = quit; n = start new)");
+    SDL_Surface *message = TTF_RenderText_Solid( font, s, textColor);
+
+    // This is the entire blank area of the level line
+    SDL_Rect status_line_offset;
+    status_line_offset.x = X_OFFSET * GRID_SIZE;
+    status_line_offset.y = Y_OFFSET * GRID_SIZE;
+    status_line_offset.h = 1 * GRID_SIZE - 1;
+    status_line_offset.w = 30 * GRID_SIZE - 1;
+
+    // This is the area for the message
+    SDL_Rect text_offset;
+    text_offset.x = X_OFFSET * GRID_SIZE;
+    text_offset.y = Y_OFFSET * GRID_SIZE;
+
+    SDL_FillRect (screen, &status_line_offset, blackColor);
+    SDL_BlitSurface (message, NULL, screen, &text_offset);
+    SDL_FreeSurface(message);
+}
 

@@ -26,5 +26,6 @@ class Grid {
     	int height();
     	int width();
 		char griddata(int, int);
+	void reset();
 };
 #endif

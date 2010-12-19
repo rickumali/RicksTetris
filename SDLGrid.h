@@ -24,4 +24,5 @@ class SDLGrid {
 	void set_grid(Grid *);
 	void set_surface(SDL_Surface *);
 	void set_shape_color(Uint32);
+	void reset();
 };
