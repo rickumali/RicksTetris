@@ -309,6 +309,7 @@ int main( int argc, char* args[] )
     // Free images
     SDL_FreeSurface(screen);
     SDL_FreeSurface(tetris_bmp);
+    SDL_FreeSurface(help_bmp);
 
     //Quit SDL
     SDL_Quit();
