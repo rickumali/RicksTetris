@@ -261,6 +261,10 @@ int main( int argc, char* args[] )
     TTF_CloseFont(font);
     TTF_Quit();
 
+    // Free images
+    SDL_FreeSurface(screen);
+    SDL_FreeSurface(image);
+
     //Quit SDL
     SDL_Quit();
     
