@@ -11,5 +11,9 @@ OriginalNintendoScoring::OriginalNintendoScoring() : ScoreSystem()
 
 int OriginalNintendoScoring::add_lines_to_score(int level, int lines) {
   add_to_current_score(pts_for_lines[lines] * (level + 1));
+  if (get_current_score() > 999999999) {
+    // We're rolling over back to 0 if we're at 1B
+    set_current_score(0);
+  }
   return(get_current_score());
 }
