@@ -29,6 +29,9 @@ SDL_Event event;
 // The surfaces that will be used
 SDL_Surface *screen = NULL;
 
+// The surface for the "background" image
+SDL_Surface *image;
+
 // Font
 TTF_Font *font;
 
@@ -70,6 +73,15 @@ int main( int argc, char* args[] )
         return 1;    
     }
     
+    // XXX: Load the "background" bitmap
+    image = SDL_LoadBMP("tetris.bmp");
+    if(image == NULL) {
+       return(1);
+    }
+
+    // BLIT the "background" bitmap
+    SDL_BlitSurface(image , NULL, screen , NULL);
+
     //Set the window caption
     SDL_WM_SetCaption( "testgravity", NULL );
 
@@ -124,6 +136,8 @@ int main( int argc, char* args[] )
 		    }
 
 		    if (event.type == SDL_KEYDOWN) {
+				if (pause && event.key.keysym.sym != SDLK_p)
+				  continue;
 			    switch(event.key.keysym.sym) {
 				    case SDLK_UP:
 					    selected_shape->rotate_right();
@@ -215,6 +229,7 @@ int main( int argc, char* args[] )
 
 	    write_score(screen, scoring->get_current_score());
 	    write_level(screen, level+1);
+
 
 	    /* Redraw "everything" */
 	    if ( SDL_MUSTLOCK(screen) ) {
