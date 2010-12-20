@@ -21,6 +21,8 @@ When 'paused', display that we're paused. (7/12/2010) DONE!
 For every global, use the "g" prefix convention. (7/12/2010)
 
 Check for auto-repeat issues (for space for fast-gravity). (7/12/2010)
+For this, maybe add some code to detect that auto-repeat is happening. Or
+somehow disable it? (12/19/2010)
 
 Integrate with Inno Setup (installer). (12/18/2010)
 
