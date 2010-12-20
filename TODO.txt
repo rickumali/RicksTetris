@@ -25,3 +25,11 @@ Check for auto-repeat issues (for space for fast-gravity). (7/12/2010)
 Integrate with Inno Setup (installer). (12/18/2010)
 
 Modify grid with a different COLOR SCHEME as levels change. (12/18/2010)
+
+Consider removing "Paused" string in grid. (12/19/2010)
+
+Lower rate of change for gravity. Feels like it plays too fast. (12/19/2010)
+
+Add sound (my voice saying "Tetris!") when user clears four rows. (12/19/2010)
+
+Consider making Game Over a BLT'd surface? (12/19/2010)
