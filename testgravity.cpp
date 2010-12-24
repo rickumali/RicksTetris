@@ -238,7 +238,7 @@ start_game:
 						// offset, to cover the lower-thirds game shapes)
 						SDL_Rect dest;
   						dest.x = 250;
-  						dest.y = 250;
+  						dest.y = 223;
     						SDL_BlitSurface(help_bmp , NULL, screen , &dest);
 					    } else {
     						// BLIT the normal "background" bitmap

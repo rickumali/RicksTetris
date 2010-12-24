@@ -35,3 +35,5 @@ Lower rate of change for gravity. Feels like it plays too fast. (12/19/2010)
 Add sound (my voice saying "Tetris!") when user clears four rows. (12/19/2010)
 
 Consider making Game Over a BLT'd surface? (12/19/2010)
+
+Consider adding a timer. (12/21/2010)
