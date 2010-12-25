@@ -34,17 +34,18 @@ SDL_Surface *tetris_bmp;
 SDL_Surface *start_bmp;
 SDL_Surface *help_bmp;
 
-// Font
-TTF_Font *font;
-
 //The frames per second
 const int FRAMES_PER_SECOND = 20;
 
 void write_level(SDL_Surface *, int);
 void write_gameover(SDL_Surface *);
 
+// Font
+TTF_Font *font;
+
 int main( int argc, char* args[] )
 {
+
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
@@ -129,7 +130,7 @@ int main( int argc, char* args[] )
     int old_gravity = -1; // stores the gravity when the player wants to fast drop the shape
 
     // Scoring System
-    SDLScoreSystem *scoring = new SDLScoreSystem(screen);
+    SDLScoreSystem *scoring = new SDLScoreSystem(screen, font);
     int level; // Need 10 rows cleared to increase level (and gravity)
     int lines_cleared_in_level;
 
@@ -324,6 +325,7 @@ start_game:
 	    }
     }
 
+    scoring->write_score_to_file();
     // Check if the game quit. If the game quit (because the pieces reach
     // the top of the grid), then allow the user to start a new game. If the
     // user quit, then just bail.

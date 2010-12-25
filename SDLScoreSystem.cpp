@@ -4,11 +4,10 @@
 #include "Constants.h"
 #include "OriginalNintendoScoring.h"
 
-extern TTF_Font *font;
-
 // Constructor
-SDLScoreSystem::SDLScoreSystem(SDL_Surface *surface_in) {
+SDLScoreSystem::SDLScoreSystem(SDL_Surface *surface_in, TTF_Font *font_in) {
   surface = surface_in;
+  font = font_in;
   scoresystem = new OriginalNintendoScoring();
 }
 
@@ -60,3 +59,6 @@ void SDLScoreSystem::write_score() {
     SDL_FreeSurface(message);
 }
 
+void SDLScoreSystem::write_score_to_file() {
+  scoresystem->write_score_to_file();
+}
