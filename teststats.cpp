@@ -299,6 +299,9 @@ int main( int argc, char* args[] )
 		    cout << "Problem with the SDL_Flip()" << std::endl;
 		    return 1;
 	    }
+
+	    // See http://www.gamedev.net/community/forums/topic.asp?topic_id=360184
+            SDL_Delay(1); 
     }
 
     statkeeper.dump_stats();
