@@ -14,10 +14,13 @@ SDLSHAPES = SDLShape.o SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o S
 
 SCORING_HEADERS = ScoreSystem.h OriginalNintendoScoring.h
 SCORING_SOURCE = ScoreSystem.cpp OriginalNintendoScoring.cpp
+SCORING = ScoreSystem.o OriginalNintendoScoring.o
 SDLSCORING_HEADERS = SDLScoreSystem.h
 SDLSCORING_SOURCE = SDLScoreSystem.cpp
-SCORING = ScoreSystem.o OriginalNintendoScoring.o
 SDLSCORING = SDLScoreSystem.o
+STATKEEPER_HEADERS = StatKeeper.h
+STATKEEPER_SOURCE = StatKeeper.cpp
+STATKEEPER = StatKeeper.o
 
 #------------------------------
 # Character-based Shape Testers
@@ -63,9 +66,11 @@ testoneshape: testoneshape.o Shape.o SDLShape.o RightEll.o SDLRightEll.o Grid.o 
 # This is a program that demonstrates each of the objects on a "big" grid
 testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o 
 
-# This tests the shapes "falling" based on gravity. Use 'f' for Faster
-# and 's' for slower
+# This tests the shapes "falling" based on gravity. For a LONG TIME this was the ACTUAL GAME ITSELF!
 testgravity: testgravity.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(SCORING) $(SDLSCORING) putpixel.o Timer.o
+
+# This tests the statistics system
+teststats: teststats.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) putpixel.o Timer.o
 
 # This is my attempt to test collision with the edges. I am beginning to 
 # abandon the adjust_x and adjust_y methods found in putpixel().
