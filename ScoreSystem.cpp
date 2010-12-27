@@ -23,16 +23,12 @@ int ScoreSystem::get_current_score() {
 
 void ScoreSystem::write_score_to_file() {
 	time_t rawtime;
-	struct tm * timeinfo;
-	time (&rawtime);
-	timeinfo = localtime(&rawtime);
+	rawtime = time(NULL);
 
 	ofstream scorefile;
 	scorefile.open("scores.txt",ios::app|ios::out);
 	if (!scorefile.fail()) {
-	  scorefile << asctime(timeinfo);
-	  scorefile << current_score;
-	  scorefile << endl;
+	  scorefile << rawtime << " " << current_score << endl;
 	  scorefile.close();
 	}
 }
