@@ -3,9 +3,6 @@
 #include "SDLStatKeeper.h"
 #include "Constants.h"
 
-#include <iostream> // RICK
-using namespace std; // RICK
-
 SDLStatKeeper::SDLStatKeeper(SDL_Surface *surface_in, TTF_Font *font_in) {
   shape_stat_loc[0].x = 270; shape_stat_loc[0].y = 250; // SQUARE 
   shape_stat_loc[0].h = 21; shape_stat_loc[0].w = 51; // SQUARE 
@@ -39,7 +36,6 @@ void SDLStatKeeper::write_stats() {
     SDL_Color textColor = {0, 255, 0};
     char s[5];
 
-    // int shape_id = 1;
     for (int shape_id = 0; shape_id < 7; shape_id++) {
       sprintf(s, "%4d", statkeeper.get_shape_count(shape_id+1));
       SDL_Surface *message = TTF_RenderText_Solid( font, s, textColor);
