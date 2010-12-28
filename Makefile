@@ -15,12 +15,18 @@ SDLSHAPES = SDLShape.o SDLSquare.o SDLPyramid.o SDLLeftSlant.o SDLRightSlant.o S
 SCORING_HEADERS = ScoreSystem.h OriginalNintendoScoring.h
 SCORING_SOURCE = ScoreSystem.cpp OriginalNintendoScoring.cpp
 SCORING = ScoreSystem.o OriginalNintendoScoring.o
+
 SDLSCORING_HEADERS = SDLScoreSystem.h
 SDLSCORING_SOURCE = SDLScoreSystem.cpp
 SDLSCORING = SDLScoreSystem.o
+
 STATKEEPER_HEADERS = StatKeeper.h
 STATKEEPER_SOURCE = StatKeeper.cpp
 STATKEEPER = StatKeeper.o
+
+SDLSTATKEEPER_HEADERS = SDLStatKeeper.h
+SDLSTATKEEPER_SOURCE = SDLStatKeeper.cpp
+SDLSTATKEEPER = SDLStatKeeper.o
 
 #------------------------------
 # Character-based Shape Testers
@@ -70,7 +76,7 @@ testsdlshape: testsdlshape.o $(SHAPES) $(SDLSHAPES) putpixel.o
 testgravity: testgravity.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(SCORING) $(SDLSCORING) putpixel.o Timer.o
 
 # This tests the statistics system
-teststats: teststats.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) putpixel.o Timer.o
+teststats: teststats.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTATKEEPER) putpixel.o Timer.o
 
 # This is my attempt to test collision with the edges. I am beginning to 
 # abandon the adjust_x and adjust_y methods found in putpixel().
@@ -101,6 +107,10 @@ testshapebag: testshapebag.o ShapeBag.o Shape.o Square.o Pyramid.o LeftSlant.o R
 
 # Tests Bitmap BLT'ing
 testsamplebitmap: testsamplebitmap.o
+
+# Test tests random numbers. What you should see is that there's 
+# no VARIATION in between runs. At least how I currently have written things.
+shapestatlocs: shapestatlocs.o
 
 clean:
 	rm -f *.o *.exe *~ stdout.txt stderr.txt

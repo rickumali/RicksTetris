@@ -15,7 +15,7 @@
 #include "putpixel.h"
 #include "Constants.h"
 #include "Timer.h"
-#include "StatKeeper.h"
+#include "SDLStatKeeper.h"
 
 #include "ShapeBag.h"
 
@@ -126,7 +126,7 @@ int main( int argc, char* args[] )
     Timer fps;
 
     // StatKeeper
-    StatKeeper statkeeper;
+    SDLStatKeeper statkeeper(screen, font);
     statkeeper.clear_counters();
     
     bool help; // User asked for 'help' Screen?
@@ -272,6 +272,7 @@ int main( int argc, char* args[] )
 		fps.start(); // Restart the clock
 	    }
 
+	    statkeeper.write_stats();
 	    write_level(screen, level+1);
 
 	    /* Redraw "everything" */
@@ -303,8 +304,6 @@ int main( int argc, char* args[] )
 	    // See http://www.gamedev.net/community/forums/topic.asp?topic_id=360184
             SDL_Delay(1); 
     }
-
-    statkeeper.dump_stats();
 
     TTF_CloseFont(font);
     TTF_Quit();
