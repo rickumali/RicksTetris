@@ -55,7 +55,6 @@ void Pyramid::draw()
 {
   for (int row = 0; row < 3; row++) {
     for (int col = 0; col < 3; col++) {
-      // cout << shape_data[rotation][(row*3)+col];
       cout << shapedata(row, col);
     }
     cout << endl;
@@ -73,9 +72,6 @@ void Pyramid::init_shape(int rotation, int square_size, string in_shape_data[]) 
 	width() = square_size;
   
 	for (int i = 0; i < square_size; i++) {
-	    cout << "in_shape_data: " << in_shape_data[i] << endl;
 		shapedata() += in_shape_data[i];
 	}
-
-	cout << "shapedata(): " << shapedata() << endl;
 }
