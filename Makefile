@@ -82,6 +82,9 @@ teststats: teststats.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTAT
 # abandon the adjust_x and adjust_y methods found in putpixel().
 testhit: testhit.o Shape.o Square.o SDLSquare.o Pyramid.o SDLPyramid.o putpixel.o Timer.o
 
+# The final "game" itself.
+tetris: tetris.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTATKEEPER) $(SCORING) $(SDLSCORING) putpixel.o Timer.o
+
 #--------------
 # Miscellaneous
 #--------------
