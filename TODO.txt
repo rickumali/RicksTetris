@@ -12,7 +12,7 @@ Put constants for things like gravity. (4/14/2010)
 
 Consider working with anttweakbar for menuing and stuff. (4/14/2010)
 
-Display level, score, lines drawn, and maybe (maybe) a "statistics" area for showing what shapes fell. (7/12/2010)
+Display level, score, lines drawn, and maybe (maybe) a "statistics" area for showing what shapes fell. (7/12/2010) DONE!
 
 Allow ability to toggle to Full Screen mode. (7/12/2010)
 
@@ -20,9 +20,9 @@ When 'paused', display that we're paused. (7/12/2010) DONE!
 
 For every global, use the "g" prefix convention. (7/12/2010)
 
-Check for auto-repeat issues (for space for fast-gravity). (7/12/2010)
+Check for auto-repeat issues (for space for fast-gravity). (7/12/2010) DONE
 For this, maybe add some code to detect that auto-repeat is happening. Or
-somehow disable it? (12/19/2010)
+somehow disable it? (12/19/2010) DONE
 
 Integrate with Inno Setup (installer). (12/18/2010)
 
@@ -37,3 +37,11 @@ Add sound (my voice saying "Tetris!") when user clears four rows. (12/19/2010)
 Consider making Game Over a BLT'd surface? (12/19/2010)
 
 Consider adding a timer. (12/21/2010)
+
+Refactor write_level and write_gameover to SDLScore routines. (12/28/2010)
+
+Consider adding level to the saved score stuff. (12/28/2010)
+
+Consider C++ STL Algorithm's random_shuffle(). (1/9/2011)
+
+Add more MessageBoxes for all error conditions. (1/15/2011)

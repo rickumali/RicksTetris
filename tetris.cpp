@@ -51,7 +51,8 @@ int main( int argc, char* args[] )
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
-        return 1;    
+	MessageBox(0,"Can't initialize SDL graphics library. See README.txt.","Rick's Tetris: Can't Initialize SDL",MB_OK); 
+	return 1;
     }
     
     if (TTF_Init()==-1) {
@@ -69,7 +70,7 @@ int main( int argc, char* args[] )
       font_counter++;
     }
     if (!found_font) {
-	MessageBox(0,"Can't find VeraBd.ttf font file. Check README.txt.","Rick's Tetris: Can't Find Font",MB_OK); 
+	MessageBox(0,"Can't find VeraBd.ttf font file. See README.txt.","Rick's Tetris: Can't Find Font",MB_OK); 
 	return 1;
     }
     
@@ -80,22 +81,26 @@ int main( int argc, char* args[] )
     //If there was an error in setting up the screen
     if( screen == NULL )
     {
-        return 1;    
+	MessageBox(0,"Can't set up SDL screen. See README.txt.","Rick's Tetris: Can't Set Screen",MB_OK); 
+	return 1;
     }
     
     // Main "background" bitmap
     tetris_bmp = SDL_LoadBMP("tetris.bmp");
     if(tetris_bmp == NULL) {
+       MessageBox(0,"Can't load tetris.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
        return(1);
     }
     // Start "splash" "background" bitmap
     start_bmp = SDL_LoadBMP("start.bmp");
     if(start_bmp == NULL) {
+       MessageBox(0,"Can't load start.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
        return(1);
     }
     // Help "background" bitmap
     help_bmp = SDL_LoadBMP("help.bmp");
     if(help_bmp == NULL) {
+       MessageBox(0,"Can't load help.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
        return(1);
     }
 
@@ -160,7 +165,9 @@ int main( int argc, char* args[] )
   	  continue;
   	}
   
-  	if (!start && event.key.keysym.sym != SDLK_s) {
+  	if (!start && event.key.keysym.sym == SDLK_q) {
+          return 1; // Allow exit from splash screen
+	} else if (!start && event.key.keysym.sym != SDLK_s) {
   	  continue;
   	} else {
   	  start = true;
@@ -322,6 +329,8 @@ int main( int argc, char* args[] )
 		    if ( SDL_MUSTLOCK(screen) ) {
 	    		if ( SDL_LockSurface(screen) < 0 ) {
 	    		    cout << "Can't lock screen:" << SDL_GetError() << std::endl;
+			    // TODO: Emit SDL_GetError to message box
+                            MessageBox(0,"Can't lock screen. See README.txt.","Rick's Tetris: Can't Lock Screen",MB_OK); 
 	    		    return 1;
 	    		}
 		    }
@@ -340,7 +349,7 @@ int main( int argc, char* args[] )
 		    }
 	
 		    if (SDL_Flip(screen) == -1) {
-			    cout << "Problem with the SDL_Flip()" << std::endl;
+                            MessageBox(0,"Can't flip screen. See README.txt.","Rick's Tetris: Can't Flip Screen",MB_OK); 
 			    return 1;
 		    }
 	
