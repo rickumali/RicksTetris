@@ -19,6 +19,8 @@
 #include "SDLStatKeeper.h"
 #include "ShapeBag.h"
 
+#include "windows.h"
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -52,20 +54,23 @@ int main( int argc, char* args[] )
         return 1;    
     }
     
-    if (SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL) == -1)
-    {
-        return 1;
-    }
-    
     if (TTF_Init()==-1) {
 	return 1;
     }
 
-    // TODO: Generalize
-    font=TTF_OpenFont("c:\\MinGW\\ttf-bitstream-vera-1.10\\VeraBd.ttf", 16);
-    if (!font) {
-        // TODO: Test failure conditions	
-        printf("TTF_OpenFont: %s\n", TTF_GetError());
+    int font_counter = 0;
+    bool found_font = false;
+    const char* font_paths[] = { "c:\\WINDOWS\\Fonts\\VeraBd.ttf", "c:\\MinGW\\ttf-bitstream-vera-1.10\\VeraBd.ttf", "VeraBd.ttf" };
+    while (!found_font) {
+      font=TTF_OpenFont(font_paths[font_counter], 16);
+      if (font) {
+          found_font = true;
+      }
+      font_counter++;
+    }
+    if (!found_font) {
+	MessageBox(0,"Can't find VeraBd.ttf font file. Check README.txt.","Rick's Tetris: Can't Find Font",MB_OK); 
+	return 1;
     }
     
     // Set up the screen
