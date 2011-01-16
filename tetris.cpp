@@ -74,6 +74,10 @@ int main( int argc, char* args[] )
 	MessageBox(0,"Can't find VeraBd.ttf font file. See README.txt.","Rick's Tetris: Can't Find Font",MB_OK); 
 	return 1;
     }
+
+    //Set the window caption and icon
+    SDL_WM_SetCaption( "Tetris by Rick Umali", "Tetris" );
+    SDL_WM_SetIcon( SDL_LoadBMP("rtet.bmp"), NULL);
     
     // Set up the screen
     // NOTE: We use HWSURFACE to take advantage of double-buffer
@@ -109,9 +113,6 @@ int main( int argc, char* args[] )
     // BLIT the start "splash" "background" bitmap
     SDL_BlitSurface(start_bmp , NULL, screen , NULL);
     SDL_UpdateRect(screen , 0 , 0 , 0 , 0 );
-
-    //Set the window caption
-    SDL_WM_SetCaption( "Tetris by Rick Umali", NULL );
 
     // Create the Grid
     SDLGrid grid(screen);
