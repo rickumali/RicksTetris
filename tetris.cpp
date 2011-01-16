@@ -51,6 +51,7 @@ int main( int argc, char* args[] )
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
+        cout << "Can't initialize SDL library: " << SDL_GetError() << std::endl;
 	MessageBox(0,"Can't initialize SDL graphics library. See README.txt.","Rick's Tetris: Can't Initialize SDL",MB_OK); 
 	return 1;
     }
@@ -81,6 +82,7 @@ int main( int argc, char* args[] )
     //If there was an error in setting up the screen
     if( screen == NULL )
     {
+        cout << "Can't set up SDL screen: " << SDL_GetError() << std::endl;
 	MessageBox(0,"Can't set up SDL screen. See README.txt.","Rick's Tetris: Can't Set Screen",MB_OK); 
 	return 1;
     }
@@ -89,19 +91,19 @@ int main( int argc, char* args[] )
     tetris_bmp = SDL_LoadBMP("tetris.bmp");
     if(tetris_bmp == NULL) {
        MessageBox(0,"Can't load tetris.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
-       return(1);
+       return 1;
     }
     // Start "splash" "background" bitmap
     start_bmp = SDL_LoadBMP("start.bmp");
     if(start_bmp == NULL) {
        MessageBox(0,"Can't load start.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
-       return(1);
+       return 1;
     }
     // Help "background" bitmap
     help_bmp = SDL_LoadBMP("help.bmp");
     if(help_bmp == NULL) {
        MessageBox(0,"Can't load help.bmp. See README.txt.","Rick's Tetris: Can't Load Bitmap",MB_OK); 
-       return(1);
+       return 1;
     }
 
     // BLIT the start "splash" "background" bitmap
@@ -328,8 +330,7 @@ int main( int argc, char* args[] )
 		    /* Redraw "everything" */
 		    if ( SDL_MUSTLOCK(screen) ) {
 	    		if ( SDL_LockSurface(screen) < 0 ) {
-	    		    cout << "Can't lock screen:" << SDL_GetError() << std::endl;
-			    // TODO: Emit SDL_GetError to message box
+	    		    cout << "Can't lock screen: " << SDL_GetError() << std::endl;
                             MessageBox(0,"Can't lock screen. See README.txt.","Rick's Tetris: Can't Lock Screen",MB_OK); 
 	    		    return 1;
 	    		}
@@ -349,6 +350,7 @@ int main( int argc, char* args[] )
 		    }
 	
 		    if (SDL_Flip(screen) == -1) {
+	    		    cout << "Can't flip screen: " << SDL_GetError() << std::endl;
                             MessageBox(0,"Can't flip screen. See README.txt.","Rick's Tetris: Can't Flip Screen",MB_OK); 
 			    return 1;
 		    }
