@@ -29,8 +29,8 @@ Scores
 ------
 
 All scores are saved to a file called scores.txt in the same directory as
-the program. The first column is the date (expressed in the UNIX epoch)
-and the second column is the score.
+the program. The first column is the date (expressed in the UNIX epoch),
+the second column is the score, and the third column is the level.
 
 If you're adept with Perl you can try to run the scoretable.pl Perl program
 to produce a listing of your scores. Read scoretable.pl for details on

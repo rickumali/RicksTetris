@@ -39,15 +39,11 @@ SDL_Surface *help_bmp;
 //The frames per second
 const int FRAMES_PER_SECOND = 20;
 
-void write_level(SDL_Surface *, int);
-void write_gameover(SDL_Surface *);
-
 // Font
 TTF_Font *font;
 
 int main( int argc, char* args[] )
 {
-
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
@@ -144,7 +140,6 @@ int main( int argc, char* args[] )
 
     // Scoring System
     SDLScoreSystem *scoring = new SDLScoreSystem(screen, font);
-    int level; // Need 10 rows cleared to increase level (and gravity)
     int lines_cleared_in_level;
 
     // Timer
@@ -183,7 +178,6 @@ int main( int argc, char* args[] )
     while (game_loop) {
 	    gravity = 1; old_gravity = -1;
 	    game_quit = false; user_quit = false; start = true;
-	    level = 0;
 	    lines_cleared_in_level = 0;
 	    pause = false; help = false;
 	    num_rows_to_clear = 0;
@@ -285,15 +279,13 @@ int main( int argc, char* args[] )
 	            if( fps.get_ticks() > (1000/gravity) )
 	            {
 			if (num_rows_to_clear > 0) {
-	                  (void) scoring->add_lines_to_score(level, num_rows_to_clear); 
+	                  (void) scoring->add_lines_to_score(num_rows_to_clear); 
 			  lines_cleared_in_level += num_rows_to_clear;
 			  num_rows_to_clear = 0;
 			  if (lines_cleared_in_level > 10) {
-			    level++; gravity++;
+				scoring->increment_level();
+			    gravity++;
 			    lines_cleared_in_level = 0;
-			    if (level > 999999) {
-	                      level = 1000000; // Cap level at 1M
-			    }
 			    if (gravity > 10) {
 	                      gravity = 10; // Cap gravity at 10
 			    }
@@ -326,7 +318,7 @@ int main( int argc, char* args[] )
 		    if (!help) {
 		      statkeeper.write_stats();
 		    }
-		    write_level(screen, level+1);
+		    scoring->write_level();
 	
 		    /* Redraw "everything" */
 		    if ( SDL_MUSTLOCK(screen) ) {
@@ -366,7 +358,7 @@ int main( int argc, char* args[] )
 	    // user quit, then just bail.
 	    if (game_quit) {
 	      user_quit = false; 
-	      write_gameover(screen);
+	      scoring->write_gameover();
 	      SDL_UpdateRect(screen , 0 , 0 , 0 , 0 );
 	      while (user_quit == false) {
 		 while (SDL_PollEvent(&event)) {
@@ -400,71 +392,5 @@ int main( int argc, char* args[] )
     SDL_Quit();
     
     return 0;    
-}
-
-/*
- * Writes the level to the level display area.
- * It blanks out the line, THEN it draws 
- * the message into the blacked out area.
- */
-void write_level(SDL_Surface *screen, int level) {
-    const int X_OFFSET = 17;
-    const int Y_OFFSET = 6;
-    Uint32 blackColor = SDL_MapRGB(screen->format, 0, 0, 0);
-    SDL_Color textColor = {0, 255, 0};
-    char s[20];
-
-    if (level > 999999)
-      sprintf(s, "Level: Past million!");
-    else 
-      sprintf(s, "Level: %11d", level);
-    SDL_Surface *message = TTF_RenderText_Solid( font, s, textColor);
-
-    // This is the entire blank area of the level line
-    SDL_Rect status_line_offset;
-    status_line_offset.x = X_OFFSET * GRID_SIZE;
-    status_line_offset.y = Y_OFFSET * GRID_SIZE;
-    status_line_offset.h = 1 * GRID_SIZE - 1;
-    status_line_offset.w = 30 * GRID_SIZE - 1;
-
-    // This is the area for the message
-    SDL_Rect text_offset;
-    text_offset.x = X_OFFSET * GRID_SIZE;
-    text_offset.y = Y_OFFSET * GRID_SIZE;
-
-    SDL_FillRect (screen, &status_line_offset, blackColor);
-    SDL_BlitSurface (message, NULL, screen, &text_offset);
-    SDL_FreeSurface(message);
-}
-
-
-/*
- * Writes the Game Over message.
- */
-void write_gameover(SDL_Surface *screen) {
-    const int X_OFFSET = 13;
-    const int Y_OFFSET = 7;
-    Uint32 blackColor = SDL_MapRGB(screen->format, 0, 0, 0);
-    SDL_Color textColor = {250, 0, 0};
-    char s[40];
-
-    sprintf(s, "Game Over! (q = quit; n = start new)");
-    SDL_Surface *message = TTF_RenderText_Solid( font, s, textColor);
-
-    // This is the entire blank area of the level line
-    SDL_Rect status_line_offset;
-    status_line_offset.x = X_OFFSET * GRID_SIZE;
-    status_line_offset.y = Y_OFFSET * GRID_SIZE;
-    status_line_offset.h = 1 * GRID_SIZE - 1;
-    status_line_offset.w = 30 * GRID_SIZE - 1;
-
-    // This is the area for the message
-    SDL_Rect text_offset;
-    text_offset.x = X_OFFSET * GRID_SIZE;
-    text_offset.y = Y_OFFSET * GRID_SIZE;
-
-    SDL_FillRect (screen, &status_line_offset, blackColor);
-    SDL_BlitSurface (message, NULL, screen, &text_offset);
-    SDL_FreeSurface(message);
 }
 
