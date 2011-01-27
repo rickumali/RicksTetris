@@ -2,7 +2,7 @@
 
 CC = g++
 CPPFLAGS = -g -I\MinGW\include\SDL
-LOADLIBES = -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib -lSDL
+LOADLIBES = -mwindows -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib -lSDL
 
 SHAPES_HEADERS = Shape.h Square.h Pyramid.h LeftSlant.h RightSlant.h LongRow.h LeftEll.h RightEll.h Grid.h
 SHAPES_SOURCE = Shape.cpp Square.cpp Pyramid.cpp LeftSlant.cpp RightSlant.cpp LongRow.cpp LeftEll.cpp RightEll.cpp Grid.cpp
@@ -27,6 +27,12 @@ STATKEEPER = StatKeeper.o
 SDLSTATKEEPER_HEADERS = SDLStatKeeper.h
 SDLSTATKEEPER_SOURCE = SDLStatKeeper.cpp
 SDLSTATKEEPER = SDLStatKeeper.o
+
+#------------------------------
+# Windows Resource File (Icons)
+#------------------------------
+resource.o: resource.rc rtet.ico
+	windres resource.rc resource.o
 
 #------------------------------
 # Character-based Shape Testers
@@ -83,7 +89,7 @@ teststats: teststats.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTAT
 testhit: testhit.o Shape.o Square.o SDLSquare.o Pyramid.o SDLPyramid.o putpixel.o Timer.o
 
 # The final "game" itself.
-tetris: tetris.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTATKEEPER) $(SCORING) $(SDLSCORING) putpixel.o Timer.o
+tetris: tetris.o ShapeBag.o $(SHAPES) $(SDLSHAPES) $(STATKEEPER) $(SDLSTATKEEPER) $(SCORING) $(SDLSCORING) putpixel.o Timer.o resource.o
 
 #--------------
 # Miscellaneous

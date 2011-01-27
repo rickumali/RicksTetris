@@ -72,7 +72,7 @@ int main( int argc, char* args[] )
     }
 
     //Set the window caption and icon
-    SDL_WM_SetCaption( "Tetris by Rick Umali", "Tetris" );
+    SDL_WM_SetCaption( "Tetris by Rick Umali", NULL );
     SDL_WM_SetIcon( SDL_LoadBMP("rtet.bmp"), NULL);
     
     // Set up the screen

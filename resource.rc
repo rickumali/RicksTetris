@@ -1,0 +1,2 @@
+// resource.rc
+IDR_ICO_MAIN ICON "rtet.ico"
