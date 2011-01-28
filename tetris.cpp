@@ -265,9 +265,6 @@ int main( int argc, char* args[] )
 							fps.unpause();
 						    }
 						    break;
-					    case SDLK_d:
-						    grid.debug_draw();
-						    break;
 					    case SDLK_q:
 						    game_loop = false;
 						    user_quit = true;
