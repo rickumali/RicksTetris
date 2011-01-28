@@ -14,20 +14,26 @@
 AppID={{296BFD7D-7626-4681-A780-5469B1064C0E}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-InfoAfterFile=C:\cygwin\home\rumali\MinGW\tetris\README.txt
+InfoAfterFile=C:\cygwin\home\rumali\MinGW\tetris\README-inst.txt
 OutputBaseFilename=rtsetup
 Compression=lzma/Max
 SolidCompression=true
-AppVerName=1.0
 PrivilegesRequired=none
 OutputDir=C:\cygwin\home\rumali\MinGW\tetris
+SetupIconFile=C:\cygwin\home\rumali\MinGW\tetris\rtet.ico
+AppCopyright=Rick Umali, 2011
+UninstallDisplayIcon={app}\tetris.exe
+VersionInfoVersion=1.0
+VersionInfoCompany=RickUmali.com
+VersionInfoCopyright=2011
+VersionInfoProductVersion=1.0.0.0
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
