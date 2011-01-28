@@ -24,7 +24,7 @@ Check for auto-repeat issues (for space for fast-gravity). (7/12/2010) DONE
 For this, maybe add some code to detect that auto-repeat is happening. Or
 somehow disable it? (12/19/2010) DONE
 
-Integrate with Inno Setup (installer). (12/18/2010)
+Integrate with Inno Setup (installer). (12/18/2010) DONE!
 
 Modify grid with a different COLOR SCHEME as levels change. (12/18/2010)
 
@@ -38,10 +38,14 @@ Consider making Game Over a BLT'd surface? (12/19/2010)
 
 Consider adding a timer. (12/21/2010)
 
-Refactor write_level and write_gameover to SDLScore routines. (12/28/2010)
+Refactor write_level and write_gameover to SDLScore routines. (12/28/2010) DONE!
 
-Consider adding level to the saved score stuff. (12/28/2010)
+Consider adding level to the saved score stuff. (12/28/2010) DONE!
 
 Consider C++ STL Algorithm's random_shuffle(). (1/9/2011)
 
-Add more MessageBoxes for all error conditions. (1/15/2011)
+Add more MessageBoxes for all error conditions. (1/15/2011) DONE!
+
+Refactor: Use get_num_rows_to_clear() everywhere you see num_rows_to_clear variable. (1/16/2011)
+
+Fix display of version in bitmaps (it's NOT aligned). (1/18/2011)
