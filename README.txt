@@ -79,6 +79,11 @@ These messages indicate that the bitmap files are not in the same
 directory as the program. Ensure that these files are there. They can
 also be retrieved from the website mentioned above.
 
+Uninstall
+---------
+
+Use Windows "Add/Remove Programs". Locate "Rick's Tetris", and select uninstall.
+
 Feedback
 --------
 
