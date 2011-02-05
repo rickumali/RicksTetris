@@ -49,3 +49,5 @@ Add more MessageBoxes for all error conditions. (1/15/2011) DONE!
 Refactor: Use get_num_rows_to_clear() everywhere you see num_rows_to_clear variable. (1/16/2011)
 
 Fix display of version in bitmaps (it's NOT aligned). (1/18/2011)
+
+Add "Comment" to [Icons] section of installer script. (2/4/2011)

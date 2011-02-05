@@ -58,6 +58,7 @@ Source: C:\cygwin\home\rumali\MinGW\tetris\scoretable.pl; DestDir: {app};
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\README.txt"; Filename: "{app}\README.txt"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]

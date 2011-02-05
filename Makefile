@@ -1,7 +1,7 @@
 # Makefile for Rick's Tetris Game (and other support files)
 
 CC = g++
-CPPFLAGS = -g -I\MinGW\include\SDL
+CPPFLAGS = -O -I\MinGW\include\SDL
 LOADLIBES = -mwindows -lmingw32 -lSDLmain \MinGW\lib\SDL_image.lib \MinGW\lib\SDL_ttf.lib -lSDL
 
 SHAPES_HEADERS = Shape.h Square.h Pyramid.h LeftSlant.h RightSlant.h LongRow.h LeftEll.h RightEll.h Grid.h
